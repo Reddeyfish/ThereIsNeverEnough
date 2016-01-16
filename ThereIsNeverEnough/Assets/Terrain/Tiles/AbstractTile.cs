@@ -35,6 +35,21 @@ public abstract class AbstractTile : MonoBehaviour, IObservable<FluidCovered> {
 
 	private RoadNode m_road;
 
+    public Defence Defense
+    {
+        get
+        {
+            return defense;
+        }
+        set
+        {
+            defense = value;
+            defense.gameObject.transform.SetParent(transform, false);
+        }
+    }
+
+    private Defence defense;
+
     protected Observable<FluidCovered> fluidCoveredObservable;
     public Observable<FluidCovered> Observable(IObservable<FluidCovered> self)
     {
@@ -44,4 +59,10 @@ public abstract class AbstractTile : MonoBehaviour, IObservable<FluidCovered> {
 
 public class FluidCovered
 {
+    public readonly AbstractTile tile;
+
+    public FluidCovered(AbstractTile tile)
+    {
+        this.tile = tile;
+    }
 }

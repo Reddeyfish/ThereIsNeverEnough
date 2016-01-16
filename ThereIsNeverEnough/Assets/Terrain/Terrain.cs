@@ -39,9 +39,11 @@ public class Terrain : MonoBehaviour, IObservable<FluidTick> {
     }
 
     Map<float> fluidDeltas;
+    public Map<float> defenceHeightBonuses;
 
     void Awake()
     {
+        defenceHeightBonuses = new Map<float>(worldSize);
         spawnedMainBase = GameObject.Instantiate(mainBasePrefab);
         self = this;
         fluidTickObservable = new Observable<FluidTick>();
@@ -122,7 +124,7 @@ public class Terrain : MonoBehaviour, IObservable<FluidTick> {
     {
         if (validTileLocation(dest))
         {
-            float diff = tiles[src].Height + tiles[src].FluidLevel - tiles[dest].Height - tiles[dest].FluidLevel;
+            float diff = tiles[src].Height + defenceHeightBonuses[src] + tiles[src].FluidLevel - tiles[dest].Height - defenceHeightBonuses[dest] - tiles[dest].FluidLevel;
 
             if (tiles[dest].FluidLevel == 0) // new tile
             {
@@ -131,7 +133,7 @@ public class Terrain : MonoBehaviour, IObservable<FluidTick> {
                     diff *= flowViscosity; //now is actual flow instead of potential
                     fluidDeltas[src] -= diff;
                     fluidDeltas[dest] += diff;
-                    tiles[dest].Post(new FluidCovered());
+                    tiles[dest].Post(new FluidCovered(tiles[dest]));
                 }
             }
             else if (diff > 0)
