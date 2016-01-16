@@ -66,7 +66,7 @@ public class People : RoadNode, IObserver<FluidCovered> {
     {
         GameObject spawnedPerson = SimplePool.Spawn(personPrefab, this.transform.position);
         Person newPerson = spawnedPerson.GetComponent<Person>();
-        Recieve(newPerson);
+        Receive(newPerson);
     }
 
     public void Notify(FluidCovered fc)

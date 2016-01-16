@@ -1,15 +1,7 @@
 ﻿using UnityEngine;
-using System.Collections;
 
+/// <summary>
+/// A road allows players and people to walk on a tile
+/// </summary>
 public class Road : MonoBehaviour {
-
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 }

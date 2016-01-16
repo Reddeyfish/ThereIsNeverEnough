@@ -25,7 +25,7 @@ public class Person : MonoBehaviour {
 	void Update () {
         if ((target.transform.position - this.transform.position).magnitude < speed * Time.deltaTime)
         {
-            target.Recieve(this);
+            target.Receive(this);
         }
         else
         {

@@ -40,7 +40,7 @@ public class Action : MonoBehaviour {
             if (currentNode == null)
             {
                 GameObject spawnedRoadNode = GameObject.Instantiate(roadNodePrefab);
-                spawnedRoadNode.transform.SetParent(Terrain.self.tiles[currentLocation].transform, false);
+				currentLocation.Tile.Road = spawnedRoadNode.GetComponent<RoadNode>();
             }
         }
 	}

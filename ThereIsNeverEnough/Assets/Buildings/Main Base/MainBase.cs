@@ -11,7 +11,6 @@ public class MainBase : RoadNode, IObserver<FluidCovered> {
 	// Use this for initialization
 	protected override void Start () {
         location = new TileLocation(0, 0);
-        distance = 0;
 
 		var tile = GetComponentInParent<AbstractTile>();
 		if (tile != null)
@@ -36,7 +35,7 @@ public class MainBase : RoadNode, IObserver<FluidCovered> {
         Destroy(this.gameObject);
     }
 
-    public override void Recieve(Person person)
+    public override void Receive(Person person)
     {
         person.Rescue();
         addRescue();

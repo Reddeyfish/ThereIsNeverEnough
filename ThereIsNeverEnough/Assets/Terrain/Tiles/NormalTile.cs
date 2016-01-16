@@ -4,9 +4,6 @@ using System.Collections;
 [RequireComponent(typeof(SpriteRenderer))]
 public class NormalTile : AbstractTile {
 
-	[Tooltip("Can this tile have a road build on it?")]
-	public bool RoadBuildable = true;
-
     float height;
     public override float Height
     {
@@ -35,31 +32,7 @@ public class NormalTile : AbstractTile {
         }
     }
 
-	/// <summary>
-	/// Returns true if this object has a road
-	/// </summary>
-	public bool HasRoad
-	{
-		get { return m_road != null; }
-	}
 
-	/// <summary>
-	/// This tile's road
-	/// </summary>
-	public Road Road
-	{
-		get
-		{
-			return m_road;
-		}
-		set
-		{
-			m_road = value;
-			m_road.gameObject.transform.parent = transform;
-		}
-	}
-
-	private Road m_road;
     SpriteRenderer visuals;
 
     void UpdateColor()

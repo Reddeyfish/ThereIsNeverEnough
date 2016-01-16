@@ -171,7 +171,12 @@ public class TileLocation
     readonly int y;
     public int Y { get { return y; } }
 
-    public TileLocation(int x, int y)
+	public AbstractTile Tile
+	{
+		get { return Terrain.self.tiles[this]; }
+	}
+
+	public TileLocation(int x, int y)
     {
         this.x = x;
         this.y = y;
@@ -186,6 +191,23 @@ public class TileLocation
     {
         return new Vector3(t.x, t.y, 0);
     }
+
+	public TileLocation Adjacent(Directions direction)
+	{
+		switch (direction)
+		{
+			case Directions.Down:
+				return down();
+			case Directions.Up:
+				return up();
+			case Directions.Left:
+				return left();
+			case Directions.Right:
+				return right();
+			default:
+				return this;
+		}
+	}
 
     public TileLocation up()
     {

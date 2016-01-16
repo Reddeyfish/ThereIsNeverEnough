@@ -6,6 +6,35 @@ public abstract class AbstractTile : MonoBehaviour, IObservable<FluidCovered> {
     public abstract float FluidLevel { get; set; }
     public TileLocation location { get; set; }
 
+	[Tooltip("Can this tile have a road built on it?")]
+	public bool IsRoadBuildable = true;
+
+	/// <summary>
+	/// Returns true if this object has a road
+	/// </summary>
+	public bool HasRoad
+	{
+		get { return m_road != null; }
+	}
+
+	/// <summary>
+	/// This tile's road
+	/// </summary>
+	public RoadNode Road
+	{
+		get
+		{
+			return m_road;
+		}
+		set
+		{
+			m_road = value;
+			m_road.gameObject.transform.SetParent(transform, false);
+		}
+	}
+
+	private RoadNode m_road;
+
     protected Observable<FluidCovered> fluidCoveredObservable;
     public Observable<FluidCovered> Observable(IObservable<FluidCovered> self)
     {
