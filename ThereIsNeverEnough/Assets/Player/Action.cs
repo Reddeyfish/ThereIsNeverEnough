@@ -49,7 +49,7 @@ public class Action : MonoBehaviour {
     {
         if (other.CompareTag(Tags.people))
         {
-            People people = other.GetComponent<People>();
+            CampOfPersons people = other.GetComponent<CampOfPersons>();
             people.Active = true;
         }
     }
