@@ -10,7 +10,16 @@ public class MainBase : MonoBehaviour, IObserver<FluidCovered> {
 
 	// Use this for initialization
 	void Start () {
-        GetComponentInParent<AbstractTile>().Subscribe(this);
+
+		var tile = GetComponentInParent<AbstractTile>();
+		if (tile != null)
+		{
+			tile.Subscribe(this);
+		}
+		else
+		{
+			Debug.LogWarning("Tile in parent main base missing.");
+		}
 	}
 
     public void addRescue()

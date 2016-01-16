@@ -36,7 +36,15 @@ public class People : MonoBehaviour, IObserver<FluidCovered> {
 
     void Start()
     {
-        GetComponentInParent<AbstractTile>().Subscribe(this);
+		AbstractTile tile = GetComponentInParent<AbstractTile>();
+		if (tile != null)
+		{
+			tile.Subscribe(this);
+		}
+		else
+		{
+			Debug.LogWarning("Abstract tile in parent people missing.");
+		}
     }
 
     public void AddRoad(Transform road)
