@@ -163,11 +163,13 @@ public class Terrain : MonoBehaviour, IObservable<FluidTick> {
 }
 
 [System.Serializable]
-public class TileLocation
+public struct TileLocation
 {
+	[SerializeField]
     readonly int x;
     public int X { get { return x; } }
 
+	[SerializeField]
     readonly int y;
     public int Y { get { return y; } }
 
