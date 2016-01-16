@@ -3,14 +3,25 @@ using System.Collections;
 
 [RequireComponent(typeof(SpriteRenderer))]
 [RequireComponent(typeof(Collider2D))]
-public class MainBase : MonoBehaviour, IObserver<FluidCovered> {
+public class MainBase : RoadNode, IObserver<FluidCovered> {
 
     int score = 0;
     public int Score { get { return score; } }
 
 	// Use this for initialization
-	void Start () {
-        GetComponentInParent<AbstractTile>().Subscribe(this);
+	protected override void Start () {
+        location = new TileLocation(0, 0);
+        distance = 0;
+
+		var tile = GetComponentInParent<AbstractTile>();
+		if (tile != null)
+		{
+			tile.Subscribe(this);
+		}
+		else
+		{
+			Debug.LogWarning("Tile in parent main base missing.");
+		}
 	}
 
     public void addRescue()
@@ -19,20 +30,15 @@ public class MainBase : MonoBehaviour, IObserver<FluidCovered> {
         Debug.Log(score);
     }
 
-    void OnCollisionEnter2D(Collision2D other)
-    {
-        if (other.collider.CompareTag(Tags.person))
-        {
-            Person person = other.transform.GetComponent<Person>();
-            person.Rescue();
-            score++;
-            Debug.Log(score);
-        }
-    }
-
     public void Notify(FluidCovered fc)
     {
         Debug.Log("Game End!");
         Destroy(this.gameObject);
+    }
+
+    public override void Recieve(Person person)
+    {
+        person.Rescue();
+        addRescue();
     }
 }

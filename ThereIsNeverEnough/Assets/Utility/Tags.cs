@@ -27,6 +27,7 @@ public class Tags{
 
     public class Layers
     {
+        public const string road = "Roads";
     }
 
     public class AnimatorParams

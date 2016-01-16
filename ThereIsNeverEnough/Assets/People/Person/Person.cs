@@ -6,8 +6,8 @@ public class Person : MonoBehaviour {
     [SerializeField]
     protected float speed;
 
-    Transform target;
-    public Transform Target { get { return target; } set { target = value; } }
+    RoadNode target;
+    public RoadNode Target { get { return target; } set { target = value; } }
 
     //Road currentRoad
 
@@ -18,19 +18,18 @@ public class Person : MonoBehaviour {
 
     public void Rescue()
     {
-        target.GetComponent<MainBase>().addRescue();
         SimplePool.Despawn(this.gameObject);
     }
 	
 	// Update is called once per frame
 	void Update () {
-        if ((target.position - this.transform.position).magnitude < speed * Time.deltaTime)
+        if ((target.transform.position - this.transform.position).magnitude < speed * Time.deltaTime)
         {
-            Rescue();
+            target.Recieve(this);
         }
         else
         {
-            this.transform.position = Vector2.MoveTowards(this.transform.position, target.position, speed * Time.deltaTime);
+            this.transform.position = Vector2.MoveTowards(this.transform.position, target.transform.position, speed * Time.deltaTime);
         }
     }
 }

@@ -12,8 +12,13 @@ public class Action : MonoBehaviour {
     [SerializeField]
     protected float accel;
 
+    [SerializeField]
+    protected GameObject roadNodePrefab;
+
     Rigidbody2D rigid;
-    MainBase mainBase;
+
+    TileLocation currentLocation;
+
     void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
@@ -21,12 +26,23 @@ public class Action : MonoBehaviour {
 
     void Start()
     {
-        mainBase = FindObjectOfType<MainBase>();
+        currentLocation = location();
     }
 	
 	// Update is called once per frame
 	void FixedUpdate () {
         rigid.velocity = Vector2.MoveTowards(rigid.velocity, speed * direction.normalized, accel * Time.fixedDeltaTime);
+        TileLocation newLocation = location();
+        if (newLocation.X != currentLocation.X || newLocation.Y != currentLocation.Y)
+        {
+            currentLocation = newLocation;
+            RoadNode currentNode = Terrain.self.tiles[currentLocation].GetComponentInChildren<RoadNode>();
+            if (currentNode == null)
+            {
+                GameObject spawnedRoadNode = GameObject.Instantiate(roadNodePrefab);
+                spawnedRoadNode.transform.SetParent(Terrain.self.tiles[currentLocation].transform, false);
+            }
+        }
 	}
 
     void OnTriggerEnter2D(Collider2D other)
@@ -35,7 +51,6 @@ public class Action : MonoBehaviour {
         {
             People people = other.GetComponent<People>();
             people.Active = true;
-            people.AddRoad(mainBase.transform);
         }
     }
 
