@@ -27,6 +27,7 @@ public class RoadNode : MonoBehaviour, IObserver<Message>, IObserver<FluidCovere
         if (tile)
         {
             tile.Subscribe<FluidCovered>(this);
+			location = tile.location;
         }
         else
         {
@@ -49,7 +50,7 @@ public class RoadNode : MonoBehaviour, IObserver<Message>, IObserver<FluidCovere
 	/// </summary>
 	private RoadNode GetRandomAdjacentNode()
 	{
-		if (Terrain.self.validTileLocation(location.Adjacent(Direction)) && location.Adjacent(Direction).Tile.HasRoad)
+		if (Direction != Directions.None && Terrain.self.validTileLocation(location.Adjacent(Direction)) && location.Adjacent(Direction).Tile.HasRoad)
 			return location.Adjacent(Direction).Tile.Road;
 
 		for (int i = 1; i < 5; ++i)
