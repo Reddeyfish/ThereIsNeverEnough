@@ -7,7 +7,7 @@ using System.Collections.Generic;
 /// </summary>
 [RequireComponent(typeof(Collider2D))]
 [RequireComponent(typeof(SpriteRenderer))]
-public class People : RoadNode, IObserver<FluidCovered> {
+public class CampOfPersons : RoadNode, IObserver<FluidCovered> {
 
     [SerializeField]
     protected GameObject personPrefab;
