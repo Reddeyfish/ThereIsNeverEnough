@@ -2,46 +2,60 @@
 using System.Collections;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class Action : MonoBehaviour
-{
-	public Vector2 direction { get; set; }
+public class Action : MonoBehaviour {
 
-	[SerializeField]
-	protected float speed;
+    public Vector2 direction { get; set; }
 
-	[SerializeField]
-	protected float accel;
+    [SerializeField]
+    protected float speed;
 
-	Rigidbody2D rigid;
-	MainBase mainBase;
+    [SerializeField]
+    protected float accel;
 
-	private void Awake()
-	{
-		rigid = GetComponent<Rigidbody2D>();
+    [SerializeField]
+    protected GameObject roadNodePrefab;
+
+    Rigidbody2D rigid;
+
+    TileLocation currentLocation;
+
+    void Awake()
+    {
+        rigid = GetComponent<Rigidbody2D>();
+    }
+
+    void Start()
+    {
+        currentLocation = location();
+    }
+	
+	// Update is called once per frame
+	void FixedUpdate () {
+        rigid.velocity = Vector2.MoveTowards(rigid.velocity, speed * direction.normalized, accel * Time.fixedDeltaTime);
+        TileLocation newLocation = location();
+        if (newLocation.X != currentLocation.X || newLocation.Y != currentLocation.Y)
+        {
+            currentLocation = newLocation;
+            RoadNode currentNode = Terrain.self.tiles[currentLocation].GetComponentInChildren<RoadNode>();
+            if (currentNode == null)
+            {
+                GameObject spawnedRoadNode = GameObject.Instantiate(roadNodePrefab);
+                spawnedRoadNode.transform.SetParent(Terrain.self.tiles[currentLocation].transform, false);
+            }
+        }
 	}
 
-	private void Start()
-	{
-		mainBase = FindObjectOfType<MainBase>();
-	}
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag(Tags.people))
+        {
+            People people = other.GetComponent<People>();
+            people.Active = true;
+        }
+    }
 
-	private void FixedUpdate()
-	{
-		rigid.velocity = Vector2.MoveTowards(rigid.velocity, speed * direction.normalized, accel * Time.fixedDeltaTime);
-	}
-
-	private void OnTriggerEnter2D(Collider2D other)
-	{
-		if (other.CompareTag(Tags.people))
-		{
-			People people = other.GetComponent<People>();
-			people.Active = true;
-			people.AddRoad(mainBase.transform);
-		}
-	}
-
-	public TileLocation location()
-	{
-		return new TileLocation(Mathf.RoundToInt(this.transform.position.x), Mathf.RoundToInt(this.transform.position.y));
-	}
+    public TileLocation location()
+    {
+        return new TileLocation(Mathf.RoundToInt(this.transform.position.x), Mathf.RoundToInt(this.transform.position.y));
+    }
 }
