@@ -10,6 +10,7 @@ public class MainBase : RoadNode {
 
 	// Use this for initialization
 	protected override void Start () {
+        distanceFromMainBase = 0;
         location = new TileLocation(0, 0);
 	}
 
