@@ -32,20 +32,6 @@ public class People : RoadNode, IObserver<FluidCovered> {
     {
         minimapVisuals = transform.Find("MinimapVisuals").GetComponent<SpriteRenderer>();
     }
-
-    protected override void Start()
-    {
-        base.Start();
-		AbstractTile tile = GetComponentInParent<AbstractTile>();
-		if (tile != null)
-		{
-			tile.Subscribe(this);
-		}
-		else
-		{
-			Debug.LogWarning("Abstract tile in parent people missing.");
-		}
-    }
 		
     void Update()
     {
@@ -67,9 +53,4 @@ public class People : RoadNode, IObserver<FluidCovered> {
         Person newPerson = spawnedPerson.GetComponent<Person>();
         Recieve(newPerson);
     }
-
-    public void Notify(FluidCovered fc)
-	{
-		Destroy (this.gameObject);
-	}
 }

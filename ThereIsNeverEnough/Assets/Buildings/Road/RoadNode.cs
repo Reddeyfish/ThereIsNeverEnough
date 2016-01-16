@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-public class RoadNode : MonoBehaviour {
+public class RoadNode : MonoBehaviour, IObserver<Message>, IObserver<FluidCovered>
+{
 
     [SerializeField]
     protected GameObject connectionVisuals;
@@ -13,6 +14,12 @@ public class RoadNode : MonoBehaviour {
     List<OutboundRoad> neighbors = new List<OutboundRoad>();
     List<RoadNode> outbound = new List<RoadNode>();
 	// Use this for initialization
+    bool originNode = false;
+
+    void Awake()
+    {
+        Observers.Subscribe(this, RecreatePathsMessage.type);
+    }
 
 	protected virtual void Start () {
         location = GetComponentInParent<AbstractTile>().location;
@@ -22,6 +29,15 @@ public class RoadNode : MonoBehaviour {
         TryAddConnection(location.left());
         TryAddConnection(location.right());
         RecomputeCosts();
+        AbstractTile tile = GetComponentInParent<AbstractTile>();
+        if (tile)
+        {
+            tile.Subscribe<FluidCovered>(this);
+        }
+        else
+        {
+            Debug.LogError("missing tile in parent");
+        }
 	}
 
     void TryAddConnection(TileLocation otherLocation)
@@ -46,6 +62,32 @@ public class RoadNode : MonoBehaviour {
     public void RecieveConnection(RoadNode node, LineRenderer rend)
     {
         neighbors.Add(new OutboundRoad(node, rend));
+    }
+
+    public void RemoveConnection(RoadNode node)
+    {
+        for(int i = 0; i < neighbors.Count; i++)
+        {
+            if(neighbors[i].node == node)
+            {
+                neighbors.RemoveAt(i);
+                break;
+            }
+        }
+    }
+
+    public void RouteDestroyed(RoadNode node)
+    {
+        if (outbound.Contains(node))
+        {
+            outbound.Clear();
+            distance = int.MaxValue - 10;
+        }
+        else
+        {
+            //we are to be the origin node for a new route
+            originNode = true;
+        }
     }
 
     void RecomputeCosts()
@@ -82,11 +124,41 @@ public class RoadNode : MonoBehaviour {
         else
             Debug.Log(neighbors.Count);
     }
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+
+    public void Notify(Message r)
+    {
+        if (r is RecreatePathsMessage)
+        {
+            if (originNode)
+            {
+                RecomputeCosts();
+                foreach (OutboundRoad or in neighbors)
+                {
+                    or.node.RecomputeCosts();
+                }
+                originNode = false;
+            }
+        }
+    }
+
+    public virtual void Notify(FluidCovered f)
+    {
+        foreach(OutboundRoad outbound in neighbors)
+        {
+            outbound.node.RemoveConnection(this);
+            Destroy(outbound.renderer.gameObject);
+        }
+
+        foreach (OutboundRoad outbound in neighbors)
+        {
+            outbound.node.RouteDestroyed(this);
+        }
+
+        //destroy self
+        Observers.Unsubscribe(this, RecreatePathsMessage.type);
+        Observers.Post(new RecreatePathsMessage());
+        Destroy(this.gameObject);
+    }
 
     class OutboundRoad
     {
@@ -99,4 +171,9 @@ public class RoadNode : MonoBehaviour {
             this.renderer = renderer;
         }
     }
+}
+
+public class RecreatePathsMessage : Message {
+    public const string type = "RecreatePathsMessage";
+    public RecreatePathsMessage() : base(type) { }
 }

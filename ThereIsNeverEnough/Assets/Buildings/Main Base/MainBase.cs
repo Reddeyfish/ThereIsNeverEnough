@@ -12,16 +12,6 @@ public class MainBase : RoadNode, IObserver<FluidCovered> {
 	protected override void Start () {
         location = new TileLocation(0, 0);
         distance = 0;
-
-		var tile = GetComponentInParent<AbstractTile>();
-		if (tile != null)
-		{
-			tile.Subscribe(this);
-		}
-		else
-		{
-			Debug.LogWarning("Tile in parent main base missing.");
-		}
 	}
 
     public void addRescue()
@@ -30,10 +20,10 @@ public class MainBase : RoadNode, IObserver<FluidCovered> {
         Debug.Log(score);
     }
 
-    public void Notify(FluidCovered fc)
+    public override void Notify(FluidCovered fc)
     {
         Debug.Log("Game End!");
-        Destroy(this.gameObject);
+        base.Notify(fc);
     }
 
     public override void Recieve(Person person)
