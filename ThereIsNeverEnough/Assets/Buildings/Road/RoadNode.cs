@@ -17,6 +17,10 @@ public class RoadNode : MonoBehaviour, IObserver<Message>, IObserver<FluidCovere
     protected TileLocation location;
     bool originNode = false;
 
+    int distanceFromMainBase;
+    List<Directions> neighbors = new List<Directions>();
+    List<Directions> outbound = new List<Directions>();
+
     void Awake()
     {
         Observers.Subscribe(this, RecreatePathsMessage.type);
@@ -26,11 +30,28 @@ public class RoadNode : MonoBehaviour, IObserver<Message>, IObserver<FluidCovere
         AbstractTile tile = GetComponentInParent<AbstractTile>();
         if (tile)
         {
+            location = tile.location;
             tile.Subscribe<FluidCovered>(this);
         }
         else
         {
             Debug.LogError("missing tile in parent");
+        }
+
+        distanceFromMainBase = int.MaxValue - 10;
+        
+        //add neighbors
+        for (int i = 1; i < 5; ++i)
+        {
+            Directions direction = (Directions)i;
+            if (direction == Directions.None)
+                continue;
+
+            if (Terrain.self.validTileLocation(location.Adjacent(direction)) && location.Adjacent(direction).Tile.HasRoad)
+            {
+                neighbors.Add(direction);
+                location.Adjacent(direction).Tile.Road.neighbors.Add(direction.inverse());
+            }
         }
 	}
 
@@ -49,8 +70,8 @@ public class RoadNode : MonoBehaviour, IObserver<Message>, IObserver<FluidCovere
 	/// </summary>
 	private RoadNode GetRandomAdjacentNode()
 	{
-		if (Terrain.self.validTileLocation(location.Adjacent(Direction)) && location.Adjacent(Direction).Tile.HasRoad)
-			return location.Adjacent(Direction).Tile.Road;
+		/* if (Terrain.self.validTileLocation(location.Adjacent(Direction)) && location.Adjacent(Direction).Tile.HasRoad)
+			return location.Adjacent(Direction).Tile.Road; */
 
 		for (int i = 1; i < 5; ++i)
 		{
@@ -59,7 +80,8 @@ public class RoadNode : MonoBehaviour, IObserver<Message>, IObserver<FluidCovere
 				continue;
 
 			if (Terrain.self.validTileLocation(location.Adjacent(direction)) && location.Adjacent(direction).Tile.HasRoad)
-			{
+            {
+                Debug.Log(direction);
 				return location.Adjacent(direction).Tile.Road;
 			}
 		}
@@ -74,7 +96,7 @@ public class RoadNode : MonoBehaviour, IObserver<Message>, IObserver<FluidCovere
 
 	public virtual void Notify(FluidCovered message)
 	{
-		Debug.Log("Not implemented");
+        Destroy(this.gameObject);
 	}
 }
 
