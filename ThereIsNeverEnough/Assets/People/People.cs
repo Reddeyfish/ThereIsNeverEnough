@@ -25,9 +25,8 @@ public class People : RoadNode, IObserver<FluidCovered> {
                 minimapVisuals.color = activeColor;
         }
     }
-
-    Dictionary<RoadNode, OutgoingRoad> outgoingRoads = new Dictionary<RoadNode, OutgoingRoad>();
     SpriteRenderer minimapVisuals;
+    float timeToNextPerson = 1;
 
     void Awake()
     {
@@ -47,22 +46,22 @@ public class People : RoadNode, IObserver<FluidCovered> {
 			Debug.LogWarning("Abstract tile in parent people missing.");
 		}
     }
-
-    public void AddRoad(RoadNode road)
+		
+    void Update()
     {
-        if(!outgoingRoads.ContainsKey(road))
-            outgoingRoads[road] = new OutgoingRoad(this, road);
-    }
-	
-	// Update is called once per frame
-	void Update () {
-        foreach (OutgoingRoad road in outgoingRoads.Values)
+        if (active)
         {
-            road.Update();
+            timeToNextPerson -= Time.deltaTime;
+            if (timeToNextPerson < 0)
+            {
+                //spawn the next person
+                spawnPerson();
+                timeToNextPerson += 5f;
+            }
         }
-	}
-
-    void spawnPerson(RoadNode road)
+    }
+		
+    void spawnPerson()
     {
         GameObject spawnedPerson = SimplePool.Spawn(personPrefab, this.transform.position);
         Person newPerson = spawnedPerson.GetComponent<Person>();
@@ -70,31 +69,7 @@ public class People : RoadNode, IObserver<FluidCovered> {
     }
 
     public void Notify(FluidCovered fc)
-    {
-        Destroy(this.gameObject);
-    }
-
-    class OutgoingRoad
-    {
-        public readonly RoadNode road;
-        public float timeToNextPerson = 1;
-        People node;
-
-        public OutgoingRoad(People node, RoadNode road)
-        {
-            this.node = node;
-            this.road = road;
-        }
-
-        public void Update()
-        {
-            timeToNextPerson -= Time.deltaTime;
-            if (timeToNextPerson < 0)
-            {
-                //spawn the next person
-                node.spawnPerson(road);
-                timeToNextPerson += 5f;
-            }
-        }
-    }
+	{
+		Destroy (this.gameObject);
+	}
 }

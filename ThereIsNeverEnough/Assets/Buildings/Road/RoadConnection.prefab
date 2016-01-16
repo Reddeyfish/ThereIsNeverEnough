@@ -38,7 +38,11 @@ LineRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
+<<<<<<< HEAD
   - {fileID: 10754, guid: 0000000000000000e000000000000000, type: 0}
+=======
+  - {fileID: 2100000, guid: d510e208ccb2e0845808106414a77d47, type: 2}
+>>>>>>> origin/master
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -58,8 +62,13 @@ LineRenderer:
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 1}
   m_Parameters:
+<<<<<<< HEAD
     startWidth: 1
     endWidth: 1
+=======
+    startWidth: 0.5
+    endWidth: 0.5
+>>>>>>> origin/master
     m_StartColor:
       serializedVersion: 2
       rgba: 4294967295
@@ -73,7 +82,23 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
+<<<<<<< HEAD
     m_Modifications: []
+=======
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: d510e208ccb2e0845808106414a77d47, type: 2}
+    - target: {fileID: 0}
+      propertyPath: m_Parameters.startWidth
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Parameters.endWidth
+      value: 0.5
+      objectReference: {fileID: 0}
+>>>>>>> origin/master
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 190330}
