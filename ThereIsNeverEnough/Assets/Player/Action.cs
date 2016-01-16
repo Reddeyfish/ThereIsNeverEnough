@@ -16,7 +16,6 @@ public class Action : MonoBehaviour {
     protected GameObject roadNodePrefab;
 
     Rigidbody2D rigid;
-    MainBase mainBase;
 
     TileLocation currentLocation;
 
@@ -27,7 +26,6 @@ public class Action : MonoBehaviour {
 
     void Start()
     {
-        mainBase = FindObjectOfType<MainBase>();
         currentLocation = location();
     }
 	
@@ -53,7 +51,6 @@ public class Action : MonoBehaviour {
         {
             People people = other.GetComponent<People>();
             people.Active = true;
-            people.AddRoad(mainBase);
         }
     }
 
