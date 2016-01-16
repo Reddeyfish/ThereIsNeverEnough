@@ -6,15 +6,12 @@ using System;
 /// <summary>
 /// Data for a road on a tile
 /// </summary>
-public class RoadNode : MonoBehaviour, IObserver<Message>, IObserver<FluidCovered>
+public class RoadNode : Building, IObserver<Message>, IObserver<FluidCovered>
 {
 	[Tooltip("Road sprite.")]
 	public SpriteRenderer RoadSprite;
 	[Tooltip("Direction a person will be directed when on this road")]
 	public Directions Direction;
-
-    public TileLocation Location { get { return location; } }
-    protected TileLocation location;
     bool originNode = false;
 
     protected int distanceFromMainBase;
@@ -26,18 +23,8 @@ public class RoadNode : MonoBehaviour, IObserver<Message>, IObserver<FluidCovere
         Observers.Subscribe(this, RecreatePathsMessage.type);
     }
 
-	protected virtual void Start () {
-        AbstractTile tile = GetComponentInParent<AbstractTile>();
-        if (tile)
-        {
-            location = tile.location;
-            tile.Subscribe<FluidCovered>(this);
-        }
-        else
-        {
-            Debug.LogError("missing tile in parent");
-        }
-
+	protected override void Start () {
+        base.Start();
         distanceFromMainBase = int.MaxValue - 10;
         
         //add neighbors
@@ -161,8 +148,9 @@ public class RoadNode : MonoBehaviour, IObserver<Message>, IObserver<FluidCovere
         }
 	}
 
-	public virtual void Notify(FluidCovered message)
+	public override void Notify(FluidCovered message)
 	{
+        base.Notify(message);
         DestroySelf();
 	}
 
