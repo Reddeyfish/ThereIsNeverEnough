@@ -16,8 +16,12 @@ public class Action : MonoBehaviour {
     MainBase mainBase;
     void Awake()
     {
-        mainBase = FindObjectOfType<MainBase>();
         rigid = GetComponent<Rigidbody2D>();
+    }
+
+    void Start()
+    {
+        mainBase = FindObjectOfType<MainBase>();
     }
 	
 	// Update is called once per frame

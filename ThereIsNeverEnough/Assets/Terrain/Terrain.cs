@@ -8,6 +8,10 @@ public class Terrain : MonoBehaviour, IObservable<FluidTick> {
     protected GameObject genericTile;
 
     [SerializeField]
+    protected GameObject mainBasePrefab;
+    GameObject spawnedMainBase;
+
+    [SerializeField]
     protected int worldSize;
 
     [SerializeField]
@@ -33,6 +37,7 @@ public class Terrain : MonoBehaviour, IObservable<FluidTick> {
 
     void Awake()
     {
+        spawnedMainBase = GameObject.Instantiate(mainBasePrefab);
         self = this;
         fluidTickObservable = new Observable<FluidTick>();
         StartCoroutine(fluidTick());
@@ -56,6 +61,9 @@ public class Terrain : MonoBehaviour, IObservable<FluidTick> {
         tiles[1 - worldSize][worldSize - 1].gameObject.AddComponent<FluidSpawner>();
         tiles[worldSize - 1][1 - worldSize].gameObject.AddComponent<FluidSpawner>();
         tiles[worldSize - 1][worldSize - 1].gameObject.AddComponent<FluidSpawner>();
+
+        spawnedMainBase.transform.SetParent(tiles[0][0].transform, false);
+        
 
         fluidDeltas = new Map<float>(worldSize);
 	}
@@ -100,7 +108,18 @@ public class Terrain : MonoBehaviour, IObservable<FluidTick> {
         if (validTileLocation(dest))
         {
             float diff = tiles[src].Height + tiles[src].FluidLevel - tiles[dest].Height - tiles[dest].FluidLevel;
-            if ((tiles[dest].FluidLevel != 0 || diff > evaporationCutoff) && diff > 0)
+
+            if (tiles[dest].FluidLevel == 0) // new tile
+            {
+                if (diff > evaporationCutoff)
+                {
+                    diff *= flowViscosity; //now is actual flow instead of potential
+                    fluidDeltas[src] -= diff;
+                    fluidDeltas[dest] += diff;
+                    tiles[dest].Post(new FluidCovered());
+                }
+            }
+            else if (diff > 0)
             {
                 diff *= flowViscosity; //now is actual flow instead of potential
                 fluidDeltas[src] -= diff;

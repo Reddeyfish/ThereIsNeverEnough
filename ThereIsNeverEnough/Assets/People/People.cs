@@ -7,7 +7,7 @@ using System.Collections.Generic;
 /// </summary>
 [RequireComponent(typeof(Collider2D))]
 [RequireComponent(typeof(SpriteRenderer))]
-public class People : MonoBehaviour {
+public class People : MonoBehaviour, IObserver<FluidCovered> {
 
     [SerializeField]
     protected GameObject personPrefab;
@@ -16,6 +16,11 @@ public class People : MonoBehaviour {
     public bool Active { set { active = value; } }
 
     Dictionary<Transform, OutgoingRoad> outgoingRoads = new Dictionary<Transform, OutgoingRoad>();
+
+    void Start()
+    {
+        GetComponentInParent<AbstractTile>().Subscribe(this);
+    }
 
     public void AddRoad(Transform road)
     {
@@ -36,6 +41,11 @@ public class People : MonoBehaviour {
         GameObject spawnedPerson = SimplePool.Spawn(personPrefab, this.transform.position);
         Person newPerson = spawnedPerson.GetComponent<Person>();
         newPerson.Target = road;
+    }
+
+    public void Notify(FluidCovered fc)
+    {
+        Destroy(this.gameObject);
     }
 
     class OutgoingRoad

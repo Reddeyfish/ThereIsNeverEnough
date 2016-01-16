@@ -46,5 +46,6 @@ public class NormalTile : AbstractTile {
     void Awake()
     {
         visuals = GetComponent<SpriteRenderer>();
+        fluidCoveredObservable = new Observable<FluidCovered>();
     }
 }
