@@ -16,6 +16,7 @@ public class Terrain : MonoBehaviour, IObservable<FluidTick> {
 
     [SerializeField]
     protected int worldSize;
+    public int WorldSize { get { return worldSize; } }
 
     [SerializeField]
     protected float flowViscosity;
@@ -215,6 +216,7 @@ public class Map<T>
     private BidirectionalMapArray<T>[] positives;
     private BidirectionalMapArray<T>[] negatives;
     private int size;
+    public int Size { get { return size; } }
     public Map(int size)
     {
         this.size = size;
