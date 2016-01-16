@@ -33,7 +33,9 @@ public class Action : MonoBehaviour {
     {
         if (other.CompareTag(Tags.people))
         {
-            other.GetComponent<People>().AddRoad(mainBase.transform);
+            People people = other.GetComponent<People>();
+            people.Active = true;
+            people.AddRoad(mainBase.transform);
         }
     }
 

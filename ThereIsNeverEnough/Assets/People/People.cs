@@ -12,10 +12,27 @@ public class People : MonoBehaviour, IObserver<FluidCovered> {
     [SerializeField]
     protected GameObject personPrefab;
 
+    [SerializeField]
+    protected Color activeColor;
+
     bool active = false;
-    public bool Active { set { active = value; } }
+    public bool Active
+    {
+        set
+        {
+            active = value;
+            if (active)
+                minimapVisuals.color = activeColor;
+        }
+    }
 
     Dictionary<Transform, OutgoingRoad> outgoingRoads = new Dictionary<Transform, OutgoingRoad>();
+    SpriteRenderer minimapVisuals;
+
+    void Awake()
+    {
+        minimapVisuals = transform.Find("MinimapVisuals").GetComponent<SpriteRenderer>();
+    }
 
     void Start()
     {
