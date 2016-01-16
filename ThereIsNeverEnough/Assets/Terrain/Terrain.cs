@@ -26,7 +26,7 @@ public class Terrain : MonoBehaviour, IObservable<FluidTick> {
     [SerializeField]
     protected float tickSpeed;
 
-    Map<AbstractTile> tiles;
+    public Map<AbstractTile> tiles;
 
     const float noiseMultiplier = 5 * Mathf.PI;
     Vector2 seed;
@@ -57,6 +57,7 @@ public class Terrain : MonoBehaviour, IObservable<FluidTick> {
             {
                 TileLocation location = new TileLocation(x, y);
                 tiles[location] = SimplePool.Spawn(genericTile, location).GetComponent<AbstractTile>();
+                tiles[location].location = location;
 #if UNITY_EDITOR
                 tiles[location].transform.SetParent(this.transform);
 #endif

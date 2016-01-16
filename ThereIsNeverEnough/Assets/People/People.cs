@@ -7,7 +7,7 @@ using System.Collections.Generic;
 /// </summary>
 [RequireComponent(typeof(Collider2D))]
 [RequireComponent(typeof(SpriteRenderer))]
-public class People : MonoBehaviour, IObserver<FluidCovered> {
+public class People : RoadNode, IObserver<FluidCovered> {
 
     [SerializeField]
     protected GameObject personPrefab;
@@ -26,7 +26,7 @@ public class People : MonoBehaviour, IObserver<FluidCovered> {
         }
     }
 
-    Dictionary<Transform, OutgoingRoad> outgoingRoads = new Dictionary<Transform, OutgoingRoad>();
+    Dictionary<RoadNode, OutgoingRoad> outgoingRoads = new Dictionary<RoadNode, OutgoingRoad>();
     SpriteRenderer minimapVisuals;
 
     void Awake()
@@ -34,12 +34,13 @@ public class People : MonoBehaviour, IObserver<FluidCovered> {
         minimapVisuals = transform.Find("MinimapVisuals").GetComponent<SpriteRenderer>();
     }
 
-    void Start()
+    protected override void Start()
     {
+        base.Start();
         GetComponentInParent<AbstractTile>().Subscribe(this);
     }
 
-    public void AddRoad(Transform road)
+    public void AddRoad(RoadNode road)
     {
         if(!outgoingRoads.ContainsKey(road))
             outgoingRoads[road] = new OutgoingRoad(this, road);
@@ -53,11 +54,11 @@ public class People : MonoBehaviour, IObserver<FluidCovered> {
         }
 	}
 
-    void spawnPerson(Transform road)
+    void spawnPerson(RoadNode road)
     {
         GameObject spawnedPerson = SimplePool.Spawn(personPrefab, this.transform.position);
         Person newPerson = spawnedPerson.GetComponent<Person>();
-        newPerson.Target = road;
+        Recieve(newPerson);
     }
 
     public void Notify(FluidCovered fc)
@@ -67,11 +68,11 @@ public class People : MonoBehaviour, IObserver<FluidCovered> {
 
     class OutgoingRoad
     {
-        public readonly Transform road;
-        public float timeToNextPerson = 0;
+        public readonly RoadNode road;
+        public float timeToNextPerson = 1;
         People node;
 
-        public OutgoingRoad(People node, Transform road)
+        public OutgoingRoad(People node, RoadNode road)
         {
             this.node = node;
             this.road = road;
