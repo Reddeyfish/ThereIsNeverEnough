@@ -35,6 +35,7 @@ public class RoadNode : MonoBehaviour {
                 spawnedConnectionVisuals.transform.SetParent(this.transform, false);
                 OutboundRoad newRoad = new OutboundRoad(other, spawnedConnectionVisuals.GetComponent<LineRenderer>());
                 newRoad.renderer.SetPosition(1, (Vector2)otherLocation - (Vector2)location);
+                newRoad.renderer.sortingLayerName = Tags.Layers.road;
                 neighbors.Add(newRoad);
 
                 other.RecieveConnection(this, newRoad.renderer);
@@ -71,7 +72,6 @@ public class RoadNode : MonoBehaviour {
             {
                 or.node.RecomputeCosts();
             }
-            Debug.Log(distance);
         }
     }
 

@@ -51,6 +51,7 @@ public class Action : MonoBehaviour {
         {
             People people = other.GetComponent<People>();
             people.Active = true;
+            Debug.Log("Activated People");
         }
     }
 
