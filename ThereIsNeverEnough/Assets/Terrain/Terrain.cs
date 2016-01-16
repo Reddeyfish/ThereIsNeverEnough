@@ -1,22 +1,47 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-public class Terrain : MonoBehaviour {
+public class Terrain : MonoBehaviour, IObservable<FluidTick> {
+    public static Terrain self;
+
     [SerializeField]
     protected GameObject genericTile;
-
 
     [SerializeField]
     protected int worldSize;
 
-    Dictionary<TileLocation, AbstractTile> tiles = new Dictionary<TileLocation, AbstractTile>();
+    [SerializeField]
+    protected float flowViscosity;
+    [SerializeField]
+    protected float evaporationCutoff;
+
+    [SerializeField]
+    protected float tickSpeed;
+
+    Map<AbstractTile> tiles;
 
     const float noiseMultiplier = 5 * Mathf.PI;
     Vector2 seed;
 
+    Observable<FluidTick> fluidTickObservable;
+    public Observable<FluidTick> Observable(IObservable<FluidTick> self)
+    {
+        return fluidTickObservable;
+    }
+
+    Map<float> fluidDeltas;
+
+    void Awake()
+    {
+        self = this;
+        fluidTickObservable = new Observable<FluidTick>();
+        StartCoroutine(fluidTick());
+    }
+
 	// Use this for initialization
 	void Start () {
         seed = Random.insideUnitCircle * 999;
+        tiles = new Map<AbstractTile>(worldSize);
         for (int x = 1 - worldSize; x < worldSize; x++)
         {
             for (int y = 1 - worldSize; y < worldSize; y++)
@@ -26,21 +51,90 @@ public class Terrain : MonoBehaviour {
                 tiles[location].Height = Mathf.PerlinNoise(seed.x + location.X / noiseMultiplier, seed.y + location.Y / noiseMultiplier);
             }
         }
+
+        tiles[1 - worldSize][1 - worldSize].gameObject.AddComponent<FluidSpawner>();
+        tiles[1 - worldSize][worldSize - 1].gameObject.AddComponent<FluidSpawner>();
+        tiles[worldSize - 1][1 - worldSize].gameObject.AddComponent<FluidSpawner>();
+        tiles[worldSize - 1][worldSize - 1].gameObject.AddComponent<FluidSpawner>();
+
+        fluidDeltas = new Map<float>(worldSize);
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+
+    IEnumerator fluidTick()
+    {
+        for (; ; )
+        {
+            yield return new WaitForSeconds(tickSpeed);
+            fluidTickObservable.Post(new FluidTick());
+            doFluidFlow();
+        }
+    }
+
+    void doFluidFlow()
+    {
+        for (int x = 1 - worldSize; x < worldSize; x++)
+        {
+            for (int y = 1 - worldSize; y < worldSize; y++)
+            {
+                TileLocation location = new TileLocation(x, y);
+                AbstractTile tile = tiles[location];
+                if (tile.FluidLevel != 0)
+                {
+                    doFluidDiffs(location);
+                }
+            }
+        }
+        applyFluidDiffs();
+    }
+
+    void doFluidDiffs(TileLocation location)
+    {
+        doFluidDiff(location, location.up());
+        doFluidDiff(location, location.down());
+        doFluidDiff(location, location.left());
+        doFluidDiff(location, location.right());
+    }
+
+    void doFluidDiff(TileLocation src, TileLocation dest)
+    {
+        if (validTileLocation(dest))
+        {
+            float diff = tiles[src].Height + tiles[src].FluidLevel - tiles[dest].Height - tiles[dest].FluidLevel;
+            if ((tiles[dest].FluidLevel != 0 || diff > evaporationCutoff) && diff > 0)
+            {
+                diff *= flowViscosity; //now is actual flow instead of potential
+                fluidDeltas[src] -= diff;
+                fluidDeltas[dest] += diff;
+            }
+        }
+    }
+
+    void applyFluidDiffs()
+    {
+        for (int x = 1 - worldSize; x < worldSize; x++)
+        {
+            for (int y = 1 - worldSize; y < worldSize; y++)
+            {
+                float newLevel = tiles[x][y].FluidLevel + fluidDeltas[x][y];
+                tiles[x][y].FluidLevel = newLevel;
+                fluidDeltas[x][y] = 0;
+            }
+        }
+    }
+
+    public bool validTileLocation(TileLocation tile)
+    {
+        return tile.X > -worldSize && tile.X < worldSize && tile.Y > -worldSize && tile.Y < worldSize;
+    }
 }
 
 [System.Serializable]
 public class TileLocation
 {
-    int x;
+    readonly int x;
     public int X { get { return x; } }
 
-    int y;
+    readonly int y;
     public int Y { get { return y; } }
 
     public TileLocation(int x, int y)
@@ -58,4 +152,111 @@ public class TileLocation
     {
         return new Vector3(t.x, t.y, 0);
     }
+
+    public TileLocation up()
+    {
+        return new TileLocation(x, y + 1);
+    }
+
+    public TileLocation down()
+    {
+        return new TileLocation(x, y - 1);
+    }
+
+    public TileLocation left()
+    {
+        return new TileLocation(x - 1, y);
+    }
+
+    public TileLocation right()
+    {
+        return new TileLocation(x + 1, y);
+    }
 }
+
+public class FluidTick
+{
+
+}
+
+public class Map<T>
+{
+    private BidirectionalMapArray<T>[] positives;
+    private BidirectionalMapArray<T>[] negatives;
+    private int size;
+    public Map(int size)
+    {
+        this.size = size;
+        this.positives = new BidirectionalMapArray<T>[size];
+        this.negatives = new BidirectionalMapArray<T>[size - 1];
+        for (int i = 0; i < size - 1; i++)
+        {
+            positives[i] = new BidirectionalMapArray<T>(size);
+            negatives[i] = new BidirectionalMapArray<T>(size);
+        }
+        //and include an extra one because positives is one larger than negatives
+        positives[size - 1] = new BidirectionalMapArray<T>(size);
+    }
+
+    public BidirectionalMapArray<T> this[int index]
+    {
+        get
+        {
+            if (index >= 0)
+                return positives[index];
+            else
+            {
+                return negatives[-index - 1];
+            }
+        }
+        set
+        {
+            if (index >= 0)
+                positives[index] = value;
+            else
+                negatives[-index - 1] = value;
+        }
+    }
+
+    public T this[TileLocation loc]
+    {
+        get
+        {
+            return this[loc.X][loc.Y];
+        }
+        set
+        {
+            this[loc.X][loc.Y] = value;
+        }
+    }
+}
+
+public class BidirectionalMapArray<T>
+{
+    private T[] positives;
+    private T[] negatives;
+    public BidirectionalMapArray(int size)
+    {
+        this.positives = new T[size];
+        this.negatives = new T[size - 1];
+    }
+
+    public T this[int index]
+    {
+        get
+        {
+            if (index >= 0)
+                return positives[index];
+            else
+                return negatives[-index - 1];
+        }
+        set
+        {
+            if (index >= 0)
+                positives[index] = value;
+            else
+                negatives[-index - 1] = value;
+        }
+    }
+}
+
