@@ -28,7 +28,7 @@ GameObject:
   - 212: {fileID: 21247258}
   - 114: {fileID: 11424216}
   m_Layer: 11
-  m_Name: People
+  m_Name: CampOfPersons
   m_TagString: People
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -84,7 +84,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 801693bb29cb80e488fca1f9fa02a075, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  connectionVisuals: {fileID: 190330, guid: a5d91c404da66484d9299192250392d9, type: 2}
+  RoadSprite: {fileID: 0}
+  Direction: 0
   personPrefab: {fileID: 135820, guid: 00b37ab1bb0869642b6bc1e51a2dfca8, type: 2}
   activeColor: {r: 0, g: 0.7568628, b: 0.003921569, a: 1}
 --- !u!212 &21216866
