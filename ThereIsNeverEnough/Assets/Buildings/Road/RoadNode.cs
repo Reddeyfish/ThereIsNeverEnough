@@ -86,6 +86,26 @@ public class RoadNode : MonoBehaviour, IObserver<Message>, IObserver<FluidCovere
             }
         }
     }
+    /// <summary>
+    /// If a node could have been part of a removed path, reset it's pathing data.
+    /// </summary>
+    /// <param name="d"></param>
+    void RemovePath(Directions d)
+    {
+        if (outbound.Contains(d))
+        {
+            outbound.Clear();
+            distanceFromMainBase = int.MaxValue - 10;
+            for (int i = 0; i < neighbors.Count; i++)
+            {
+                location.Adjacent(neighbors[i]).Tile.Road.RemovePath(neighbors[i].inverse());
+            }
+        }
+        else
+        {
+            originNode = true; //this node is the origin node of a new path to avoid the removed node
+        }
+    }
 
 	/// <summary>
 	/// Take the person and throw him along your direction
@@ -131,13 +151,38 @@ public class RoadNode : MonoBehaviour, IObserver<Message>, IObserver<FluidCovere
 
 	public virtual void Notify(Message message)
 	{
-		throw new NotImplementedException();
+        if (message is RecreatePathsMessage && originNode)
+        {
+            originNode = false;
+            for (int i = 0; i < neighbors.Count; i++)
+            {
+                location.Adjacent(neighbors[i]).Tile.Road.RecalculatePathing();
+            }
+        }
 	}
 
 	public virtual void Notify(FluidCovered message)
 	{
-        Destroy(this.gameObject);
+        DestroySelf();
 	}
+
+    void DestroySelf()
+    {
+        //remove self from linkings
+        for (int i = 0; i < neighbors.Count; i++)
+        {
+            location.Adjacent(neighbors[i]).Tile.Road.neighbors.Remove(neighbors[i].inverse());
+        }
+        //remove self from pathings
+        for (int i = 0; i < neighbors.Count; i++)
+        {
+            location.Adjacent(neighbors[i]).Tile.Road.RemovePath(neighbors[i].inverse());
+        }
+        Observers.Unsubscribe(this, RecreatePathsMessage.type);
+        //recreate pathings
+        Observers.Post(new RecreatePathsMessage());
+        Destroy(this.gameObject);
+    }
 }
 
 public class RecreatePathsMessage : Message {
