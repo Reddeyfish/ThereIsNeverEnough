@@ -14,23 +14,23 @@ public class Action : MonoBehaviour
 
 	Rigidbody2D rigid;
 	MainBase mainBase;
-	void Awake()
+
+	private void Awake()
 	{
 		rigid = GetComponent<Rigidbody2D>();
 	}
 
-	void Start()
+	private void Start()
 	{
 		mainBase = FindObjectOfType<MainBase>();
 	}
 
-	// Update is called once per frame
-	void FixedUpdate()
+	private void FixedUpdate()
 	{
 		rigid.velocity = Vector2.MoveTowards(rigid.velocity, speed * direction.normalized, accel * Time.fixedDeltaTime);
 	}
 
-	void OnTriggerEnter2D(Collider2D other)
+	private void OnTriggerEnter2D(Collider2D other)
 	{
 		if (other.CompareTag(Tags.people))
 		{
