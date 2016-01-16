@@ -6,11 +6,9 @@ using System.Collections;
 
 public class Tags{
     public const string player = "Player";
-    public const string canvas = "Canvas";
+    public const string people = "People";
+    public const string person = "Person";
     public const string untagged = "Untagged";
-    public const string stage = "Stage";
-    public const string puck = "Puck";
-    public const string gameController = "GameController";
 
     public class Scenes
     {
@@ -29,8 +27,6 @@ public class Tags{
 
     public class Layers
     {
-        public const string movable = "Movables";
-        public const string stage = "Stage";
     }
 
     public class AnimatorParams
@@ -49,14 +45,6 @@ public class Tags{
 
     public class ShaderParams
     {
-        public static int color = Shader.PropertyToID("_Color");
-        public static int emission = Shader.PropertyToID("_EmissionColor");
-        public static int cutoff = Shader.PropertyToID("_Cutoff");
-        public static int noiseStrength = Shader.PropertyToID("_NoiseStrength");
-        public static int effectTexture = Shader.PropertyToID("_EffectTex");
-        public static int rangeMin = Shader.PropertyToID("_RangeMin");
-        public static int rangeMax = Shader.PropertyToID("_RangeMax");
-        public static int imageStrength = Shader.PropertyToID("_ImageStrength");
-        public static int alpha = Shader.PropertyToID("_MainTexAlpha");
+        public const string cutoff = "Cutoff";
     }
 }

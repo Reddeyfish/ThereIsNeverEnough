@@ -13,9 +13,10 @@ public class Action : MonoBehaviour {
     protected float accel;
 
     Rigidbody2D rigid;
-
+    MainBase mainBase;
     void Awake()
     {
+        mainBase = FindObjectOfType<MainBase>();
         rigid = GetComponent<Rigidbody2D>();
     }
 	
@@ -23,4 +24,12 @@ public class Action : MonoBehaviour {
 	void FixedUpdate () {
         rigid.velocity = Vector2.MoveTowards(rigid.velocity, speed * direction.normalized, accel * Time.fixedDeltaTime);
 	}
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag(Tags.people))
+        {
+            other.GetComponent<People>().AddRoad(mainBase.transform);
+        }
+    }
 }
