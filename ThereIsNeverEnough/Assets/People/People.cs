@@ -25,76 +25,32 @@ public class People : RoadNode, IObserver<FluidCovered> {
                 minimapVisuals.color = activeColor;
         }
     }
-
-    Dictionary<RoadNode, OutgoingRoad> outgoingRoads = new Dictionary<RoadNode, OutgoingRoad>();
     SpriteRenderer minimapVisuals;
+    float timeToNextPerson = 1;
 
     void Awake()
     {
         minimapVisuals = transform.Find("MinimapVisuals").GetComponent<SpriteRenderer>();
     }
-
-    protected override void Start()
+		
+    void Update()
     {
-        base.Start();
-		AbstractTile tile = GetComponentInParent<AbstractTile>();
-		if (tile != null)
-		{
-			tile.Subscribe(this);
-		}
-		else
-		{
-			Debug.LogWarning("Abstract tile in parent people missing.");
-		}
-    }
-
-    public void AddRoad(RoadNode road)
-    {
-        if(!outgoingRoads.ContainsKey(road))
-            outgoingRoads[road] = new OutgoingRoad(this, road);
-    }
-	
-	// Update is called once per frame
-	void Update () {
-        foreach (OutgoingRoad road in outgoingRoads.Values)
-        {
-            road.Update();
-        }
-	}
-
-    void spawnPerson(RoadNode road)
-    {
-        GameObject spawnedPerson = SimplePool.Spawn(personPrefab, this.transform.position);
-        Person newPerson = spawnedPerson.GetComponent<Person>();
-        Receive(newPerson);
-    }
-
-    public void Notify(FluidCovered fc)
-    {
-        Destroy(this.gameObject);
-    }
-
-    class OutgoingRoad
-    {
-        public readonly RoadNode road;
-        public float timeToNextPerson = 1;
-        People node;
-
-        public OutgoingRoad(People node, RoadNode road)
-        {
-            this.node = node;
-            this.road = road;
-        }
-
-        public void Update()
+        if (active)
         {
             timeToNextPerson -= Time.deltaTime;
             if (timeToNextPerson < 0)
             {
                 //spawn the next person
-                node.spawnPerson(road);
+                spawnPerson();
                 timeToNextPerson += 5f;
             }
         }
+    }
+		
+    void spawnPerson()
+    {
+        GameObject spawnedPerson = SimplePool.Spawn(personPrefab, this.transform.position);
+        Person newPerson = spawnedPerson.GetComponent<Person>();
+        Receive(newPerson);
     }
 }

@@ -37,7 +37,7 @@ public class Action : MonoBehaviour {
         {
             currentLocation = newLocation;
             RoadNode currentNode = Terrain.self.tiles[currentLocation].GetComponentInChildren<RoadNode>();
-            if (currentNode == null)
+            if (currentNode == null && Terrain.self.tiles[currentLocation].FluidLevel == 0)
             {
                 GameObject spawnedRoadNode = GameObject.Instantiate(roadNodePrefab);
 				currentLocation.Tile.Road = spawnedRoadNode.GetComponent<RoadNode>();
