@@ -12,6 +12,9 @@ public class Terrain : MonoBehaviour, IObservable<FluidTick> {
     GameObject spawnedMainBase;
 
     [SerializeField]
+    protected GameObject peoplePrefab;
+
+    [SerializeField]
     protected int worldSize;
 
     [SerializeField]
@@ -53,6 +56,9 @@ public class Terrain : MonoBehaviour, IObservable<FluidTick> {
             {
                 TileLocation location = new TileLocation(x, y);
                 tiles[location] = SimplePool.Spawn(genericTile, location).GetComponent<AbstractTile>();
+#if UNITY_EDITOR
+                tiles[location].transform.SetParent(this.transform);
+#endif
                 tiles[location].Height = Mathf.PerlinNoise(seed.x + location.X / noiseMultiplier, seed.y + location.Y / noiseMultiplier);
             }
         }
@@ -63,7 +69,13 @@ public class Terrain : MonoBehaviour, IObservable<FluidTick> {
         tiles[worldSize - 1][worldSize - 1].gameObject.AddComponent<FluidSpawner>();
 
         spawnedMainBase.transform.SetParent(tiles[0][0].transform, false);
-        
+
+        for (int i = 0; i < 5; i++)
+        {
+            GameObject spawnedPeople = GameObject.Instantiate(peoplePrefab);
+            TileLocation location = new TileLocation(Random.Range(1-worldSize, worldSize), Random.Range(1-worldSize, worldSize));
+            spawnedPeople.transform.SetParent(tiles[location].transform, false);
+        }
 
         fluidDeltas = new Map<float>(worldSize);
 	}

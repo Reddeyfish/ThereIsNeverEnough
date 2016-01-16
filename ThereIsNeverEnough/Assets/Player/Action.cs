@@ -36,4 +36,9 @@ public class Action : MonoBehaviour {
             other.GetComponent<People>().AddRoad(mainBase.transform);
         }
     }
+
+    public TileLocation location()
+    {
+        return new TileLocation(Mathf.RoundToInt(this.transform.position.x), Mathf.RoundToInt(this.transform.position.y));
+    }
 }
