@@ -142,7 +142,7 @@ public static class IObservableExtension
     /// <param name="message">The object to be sent as a parameter to all subscribers.</param>
     public static void Post<T>(this IObservable<T> self, T message)
     {
-        self.Post(message);
+        self.Observable().Post(message);
     }
 }
 

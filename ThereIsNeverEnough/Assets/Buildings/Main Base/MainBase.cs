@@ -3,14 +3,14 @@ using System.Collections;
 
 [RequireComponent(typeof(SpriteRenderer))]
 [RequireComponent(typeof(Collider2D))]
-public class MainBase : MonoBehaviour {
+public class MainBase : MonoBehaviour, IObserver<FluidCovered> {
 
     int score = 0;
     public int Score { get { return score; } }
 
 	// Use this for initialization
 	void Start () {
-
+        GetComponentInParent<AbstractTile>().Subscribe(this);
 	}
 
     public void addRescue()
@@ -28,5 +28,11 @@ public class MainBase : MonoBehaviour {
             score++;
             Debug.Log(score);
         }
+    }
+
+    public void Notify(FluidCovered fc)
+    {
+        Debug.Log("Game End!");
+        Destroy(this.gameObject);
     }
 }

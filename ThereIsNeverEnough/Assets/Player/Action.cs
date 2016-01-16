@@ -16,8 +16,12 @@ public class Action : MonoBehaviour {
     MainBase mainBase;
     void Awake()
     {
-        mainBase = FindObjectOfType<MainBase>();
         rigid = GetComponent<Rigidbody2D>();
+    }
+
+    void Start()
+    {
+        mainBase = FindObjectOfType<MainBase>();
     }
 	
 	// Update is called once per frame
@@ -29,7 +33,14 @@ public class Action : MonoBehaviour {
     {
         if (other.CompareTag(Tags.people))
         {
-            other.GetComponent<People>().AddRoad(mainBase.transform);
+            People people = other.GetComponent<People>();
+            people.Active = true;
+            people.AddRoad(mainBase.transform);
         }
+    }
+
+    public TileLocation location()
+    {
+        return new TileLocation(Mathf.RoundToInt(this.transform.position.x), Mathf.RoundToInt(this.transform.position.y));
     }
 }
