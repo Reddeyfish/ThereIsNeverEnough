@@ -24,10 +24,10 @@ public class RoadNode : MonoBehaviour, IObserver<Message>, IObserver<FluidCovere
 	protected virtual void Start () {
         location = GetComponentInParent<AbstractTile>().location;
         distance = int.MaxValue - 10;
-        TryAddConnection(location.up());
-        TryAddConnection(location.down());
-        TryAddConnection(location.left());
-        TryAddConnection(location.right());
+        TryAddConnection(location.up(), Direction.UP);
+        TryAddConnection(location.down(), Direction.DOWN);
+        TryAddConnection(location.left(), Direction.LEFT);
+        TryAddConnection(location.right(), Direction.RIGHT);
         RecomputeCosts();
         AbstractTile tile = GetComponentInParent<AbstractTile>();
         if (tile)
@@ -40,7 +40,7 @@ public class RoadNode : MonoBehaviour, IObserver<Message>, IObserver<FluidCovere
         }
 	}
 
-    void TryAddConnection(TileLocation otherLocation)
+    void TryAddConnection(TileLocation otherLocation, Direction direction)
     {
         if (Terrain.self.validTileLocation(otherLocation))
         {
@@ -49,19 +49,19 @@ public class RoadNode : MonoBehaviour, IObserver<Message>, IObserver<FluidCovere
             {
                 GameObject spawnedConnectionVisuals = GameObject.Instantiate(connectionVisuals);
                 spawnedConnectionVisuals.transform.SetParent(this.transform, false);
-                OutboundRoad newRoad = new OutboundRoad(other, spawnedConnectionVisuals.GetComponent<LineRenderer>());
+                OutboundRoad newRoad = new OutboundRoad(other, spawnedConnectionVisuals.GetComponent<LineRenderer>(), direction);
                 newRoad.renderer.SetPosition(1, (Vector2)otherLocation - (Vector2)location);
                 newRoad.renderer.sortingLayerName = Tags.Layers.road;
                 neighbors.Add(newRoad);
 
-                other.RecieveConnection(this, newRoad.renderer);
+                other.RecieveConnection(this, newRoad.renderer, getMirror(direction));
             }
         }
     }
 
-    public void RecieveConnection(RoadNode node, LineRenderer rend)
+    void RecieveConnection(RoadNode node, LineRenderer rend, Direction direction)
     {
-        neighbors.Add(new OutboundRoad(node, rend));
+        neighbors.Add(new OutboundRoad(node, rend, direction));
     }
 
     public void RemoveConnection(RoadNode node)
@@ -164,12 +164,31 @@ public class RoadNode : MonoBehaviour, IObserver<Message>, IObserver<FluidCovere
     {
         public readonly RoadNode node;
         public readonly LineRenderer renderer;
+        public readonly Direction direction;
 
-        public OutboundRoad(RoadNode node, LineRenderer renderer)
+        public OutboundRoad(RoadNode node, LineRenderer renderer, Direction direction)
         {
             this.node = node;
             this.renderer = renderer;
+            this.direction = direction;
         }
+    }
+    enum Direction
+    { UP, DOWN, LEFT, RIGHT}
+    Direction getMirror(Direction direction)
+    {
+        switch (direction)
+        {
+            case Direction.UP:
+                return Direction.DOWN;
+            case Direction.DOWN:
+                return Direction.UP;
+            case Direction.LEFT:
+                return Direction.RIGHT;
+            case Direction.RIGHT:
+                return Direction.LEFT;
+        }
+        return Direction.UP;
     }
 }
 
