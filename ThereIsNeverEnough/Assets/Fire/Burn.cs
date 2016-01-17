@@ -12,7 +12,7 @@ public class Burn : MonoBehaviour {
 		}
 
 		if (location.Tile.HasRoad) {
-			SimplePool.Despawn (location.Tile.Road.gameObject);
+            location.Tile.Road.DestroySelf();
 		}
 	}
 
