@@ -47,6 +47,7 @@ public class Fire : MonoBehaviour {
 		timer = 0;
 
 		if (spawningLocation.X == 0 && spawningLocation.Y == 0) {
+			Debug.Log ("Fire destoys the main base");
 			SceneManager.LoadScene("Score");
 		}
 
