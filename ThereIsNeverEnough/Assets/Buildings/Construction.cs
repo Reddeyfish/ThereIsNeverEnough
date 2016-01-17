@@ -65,9 +65,9 @@ public class Construction : Building
 	public void Build()
     {
         Progress += Time.deltaTime;
-		PlayConstructionSound();
         if (Progress > constructionTime)
         {
+			PlayConstructionSound();
             location.Tile.Building = null;
 
             Building finishedBuilding = GameObject.Instantiate(CompletedBuildingPrefab).GetComponent<Building>();
