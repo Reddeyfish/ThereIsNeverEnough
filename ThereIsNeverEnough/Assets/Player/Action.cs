@@ -118,7 +118,7 @@ public class Action : MonoBehaviour, IObservable<PlayerMovedMessage> {
 	/// <param name="location"></param>
 	private void BuildRoad(TileLocation location)
 	{
-		if (Terrain.self.validTileLocation(location) && !location.Tile.CanBuildRoad(roadNodePrefab))
+		if (Terrain.self.validTileLocation(location) && location.Tile.CanBuildRoad(roadNodePrefab))
 		{
 			GameObject spawnedRoadNode = Instantiate(roadNodePrefab.gameObject);
 			location.Tile.Road = spawnedRoadNode.GetComponent<RoadNode>();
