@@ -137,7 +137,7 @@ MonoBehaviour:
   worldSize: 25
   flowViscosity: 0.05
   evaporationCutoff: 0.025
-  tickSpeed: 0.1
+  tickSpeed: 0.05
 --- !u!124 &12425026
 Behaviour:
   m_ObjectHideFlags: 1

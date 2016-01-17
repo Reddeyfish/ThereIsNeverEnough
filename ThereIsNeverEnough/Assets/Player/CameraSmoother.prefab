@@ -149,7 +149,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 120622}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 0f99d54521b94ac4d883fd57ce07320b, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}

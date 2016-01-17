@@ -7,7 +7,18 @@ public class Person : MonoBehaviour {
     protected float speed;
 
     RoadNode target;
-    public RoadNode Target { get { return target; } set { target = value; } }
+    public RoadNode Target
+    {
+        get { return target; }
+        set
+        {
+            if (value != null)
+            {
+                target = value;
+                transform.rotation = ((Vector2)(target.transform.position - (transform.position))).ToRotation();
+            }
+        }
+    }
 
     //Road currentRoad
 
