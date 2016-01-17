@@ -56,7 +56,7 @@ public class Action : MonoBehaviour, IObservable<PlayerMovedMessage> {
         }
 
         Building building = currentLocation.Tile.Building;
-        if (building is Construction)
+        if (building != null && building is Construction)
             (building as Construction).Build();
     }
 
