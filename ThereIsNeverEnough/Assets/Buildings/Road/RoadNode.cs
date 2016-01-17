@@ -10,13 +10,16 @@ public class RoadNode : Building, IObserver<Message>, IObserver<FluidCovered>
 {
 	[Tooltip("Road sprite.")]
 	public SpriteRenderer RoadSprite;
-	[Tooltip("Direction a person will be directed when on this road")]
-	public Directions Direction;
-    bool originNode = false;
+	[Tooltip("Name of the road tileset used")]
+	public string RoadStyle;
+    
+	private bool originNode = false;
 
     protected int distanceFromMainBase;
     List<Directions> neighbors = new List<Directions>();
     List<Directions> outbound = new List<Directions>();
+
+	private const string TilesetLocation = "Tileset";
 
     void Awake()
     {
@@ -38,16 +41,114 @@ public class RoadNode : Building, IObserver<Message>, IObserver<FluidCovered>
             {
                 neighbors.Add(direction);
                 location.Adjacent(direction).Tile.Road.neighbors.Add(direction.inverse());
+
+				location.Adjacent(direction).Tile.Road.SetSprite();
             }
         }
+
+		SetSprite();
 
         RecalculatePathing();
 	}
 
-    /// <summary>
-    /// Reads the distance of adjacent nodes, sets the lowest as the outbound direction and updates the current distance
-    /// </summary>
-    void RecalculatePathing()
+	/// <summary>
+	/// sets the sprite according to who neighbors this road
+	/// </summary>
+	private void SetSprite()
+	{
+		if (string.IsNullOrEmpty(RoadStyle))
+			return;
+
+		ConnectionsFlag connect = ConnectionsFlag.None;
+		// depending on neighbors we set the sprite
+		for (int i = 0; i < neighbors.Count; i++)
+		{
+			connect |= neighbors[i].ToConnect();
+		}
+
+		Sprite[] spritesArray = Resources.LoadAll<Sprite>(TilesetLocation + "/" + RoadStyle);
+		switch (connect)
+		{
+			case ConnectionsFlag.Up | ConnectionsFlag.Down | ConnectionsFlag.Left | ConnectionsFlag.Right:
+				SetSpriteRenderer(spritesArray, 9);
+				break;
+
+			case ConnectionsFlag.Up | ConnectionsFlag.Down | ConnectionsFlag.Left:
+				SetSpriteRenderer(spritesArray, 10);
+				break;
+
+			case ConnectionsFlag.Up | ConnectionsFlag.Down | ConnectionsFlag.Right:
+				SetSpriteRenderer(spritesArray, 8);
+				break;
+
+			case ConnectionsFlag.Up | ConnectionsFlag.Left | ConnectionsFlag.Right:
+				SetSpriteRenderer(spritesArray, 13);
+				break;
+
+			case ConnectionsFlag.Down | ConnectionsFlag.Left | ConnectionsFlag.Right:
+				SetSpriteRenderer(spritesArray, 5);
+				break;
+
+			case ConnectionsFlag.Up | ConnectionsFlag.Down:
+				SetSpriteRenderer(spritesArray, 7);
+				break;
+
+			case ConnectionsFlag.Up | ConnectionsFlag.Left:
+				SetSpriteRenderer(spritesArray, 14);
+				break;
+
+			case ConnectionsFlag.Up | ConnectionsFlag.Right:
+				SetSpriteRenderer(spritesArray, 12);
+				break;
+
+			case ConnectionsFlag.Down | ConnectionsFlag.Left:
+				SetSpriteRenderer(spritesArray, 6);
+				break;
+
+			case ConnectionsFlag.Down | ConnectionsFlag.Right:
+				SetSpriteRenderer(spritesArray, 4);
+				break;
+
+			case ConnectionsFlag.Left | ConnectionsFlag.Right:
+				SetSpriteRenderer(spritesArray, 1);
+				break;
+
+			case ConnectionsFlag.Up:
+				SetSpriteRenderer(spritesArray, 11);
+				break;
+
+			case ConnectionsFlag.Down:
+				SetSpriteRenderer(spritesArray, 3);
+				break;
+
+			case ConnectionsFlag.Left:
+				SetSpriteRenderer(spritesArray, 2);
+				break;
+
+			case ConnectionsFlag.Right:
+				SetSpriteRenderer(spritesArray, 0);
+				break;
+		}
+	}
+
+	/// <summary>
+	/// sets the sprite renderer to a sprite inside the array
+	/// </summary>
+	/// <param name="spritesArray"></param>
+	/// <param name="index"></param>
+	private void SetSpriteRenderer(Sprite[] spritesArray, int index)
+	{
+		Debug.Log("sprite : " + index);
+		if (spritesArray.Length > index)
+		{
+			RoadSprite.sprite = spritesArray[index];
+		}
+	}
+
+	/// <summary>
+	/// Reads the distance of adjacent nodes, sets the lowest as the outbound direction and updates the current distance
+	/// </summary>
+	void RecalculatePathing()
     {
         bool valueChanged = false;
         for (int i = 0; i < neighbors.Count; i++)
@@ -117,23 +218,6 @@ public class RoadNode : Building, IObserver<Message>, IObserver<FluidCovered>
         {
             return this;
         }
-		/* if (Terrain.self.validTileLocation(location.Adjacent(Direction)) && location.Adjacent(Direction).Tile.HasRoad)
-			return location.Adjacent(Direction).Tile.Road;
-
-		for (int i = 1; i < 5; ++i)
-		{
-			Directions direction = (Directions)i;
-			if (direction == Directions.None)
-				continue;
-
-			if (Terrain.self.validTileLocation(location.Adjacent(direction)) && location.Adjacent(direction).Tile.HasRoad)
-            {
-                Debug.Log(direction);
-				return location.Adjacent(direction).Tile.Road;
-			}
-		}
-
-		return location.Adjacent(Directions.None).Tile.Road; */
 	}
 
 	public virtual void Notify(Message message)
