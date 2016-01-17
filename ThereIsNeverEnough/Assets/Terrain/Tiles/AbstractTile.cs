@@ -46,8 +46,11 @@ public abstract class AbstractTile : MonoBehaviour, IObservable<FluidCovered> {
         set
         {
             building = value;
-            building.transform.SetParent(transform, false);
-            building.transform.localPosition = Vector3.zero;
+            if (building != null)
+            {
+                building.transform.SetParent(transform, false);
+                building.transform.localPosition = Vector3.zero;
+            }
         }
     }
 

@@ -45,7 +45,10 @@ public class Construction : Building
         Progress += Time.deltaTime;
         if (Progress > constructionTime)
         {
+            location.Tile.Building = null;
+
             Building finishedBuilding = GameObject.Instantiate(CompletedBuildingPrefab).GetComponent<Building>();
+
             if (finishedBuilding is RoadNode)
             {
                 location.Tile.Road = finishedBuilding as RoadNode;
@@ -54,8 +57,8 @@ public class Construction : Building
             {
                 location.Tile.Building = finishedBuilding;
             }
-            if(this != null)
-                Destroy(this.gameObject);
+            
+            Destroy(this.gameObject);
         }
     }
 }

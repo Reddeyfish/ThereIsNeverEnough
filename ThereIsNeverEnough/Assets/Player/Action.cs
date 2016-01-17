@@ -63,7 +63,8 @@ public class Action : MonoBehaviour, IObservable<PlayerMovedMessage> {
         Building building = currentLocation.Tile.Building;
         if (building is Construction)
         {
-            Destroy(building.gameObject);
+            if(building)
+                Destroy(building.gameObject);
             SpawnConstruction(completedBuildingPrefab);
         }
         else if(currentLocation.Tile.Road == null && completedBuildingPrefab.GetComponent<Building>() is RoadNode)
