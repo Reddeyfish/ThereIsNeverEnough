@@ -49,6 +49,11 @@ public class Construction : Building
 	protected override void Start()
 	{
 		base.Start();
+		PlayConstructionSound();
+	}
+
+	private void PlayConstructionSound()
+	{
 		AudioSource source = Camera.main.GetComponent<AudioSource>();
 		if (source != null && Time.time - TimeSinceLast > ConstructionStartSFX.length)
 		{
@@ -57,9 +62,10 @@ public class Construction : Building
 		}
 	}
 
-    public void Build()
+	public void Build()
     {
         Progress += Time.deltaTime;
+		PlayConstructionSound();
         if (Progress > constructionTime)
         {
             location.Tile.Building = null;
