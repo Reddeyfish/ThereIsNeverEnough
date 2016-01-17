@@ -9,7 +9,11 @@ public class Burn : MonoBehaviour {
 		if (location.Tile.FluidLevel != 0) {
 			SimplePool.Despawn (this.gameObject);
 			FindObjectOfType<Fire> ().locations [location] = false;
-		}			
+		}
+
+		if (location.Tile.HasRoad) {
+			SimplePool.Despawn (location.Tile.Road.gameObject);
+		}
 	}
 
 
