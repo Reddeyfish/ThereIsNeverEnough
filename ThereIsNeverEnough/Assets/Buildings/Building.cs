@@ -6,6 +6,8 @@ public abstract class Building : MonoBehaviour, IObserver<FluidCovered>
     public TileLocation Location { get { return location; } }
     protected TileLocation location;
 
+    public virtual float buildTime { get { return 1; } }
+
     protected virtual void Start()
     {
         AbstractTile tile = GetComponentInParent<AbstractTile>();
