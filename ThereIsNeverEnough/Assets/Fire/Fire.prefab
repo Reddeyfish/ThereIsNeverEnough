@@ -8,10 +8,11 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 415142}
-  - 212: {fileID: 21206152}
   - 114: {fileID: 11431210}
   - 58: {fileID: 5889026}
   - 50: {fileID: 5001488}
+  - 95: {fileID: 9518070}
+  - 212: {fileID: 21233106}
   m_Layer: 9
   m_Name: Fire
   m_TagString: Untagged
@@ -27,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 183586}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.96, y: -1.27, z: 0}
-  m_LocalScale: {x: 0.3411227, y: 0.32845482, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -61,7 +62,24 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 1.8
+  m_Radius: 0.5
+--- !u!95 &9518070
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 183586}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c699af8e91f044d588aa92b3eeaa9ebb, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &11431210
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -73,7 +91,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc0b9fddcff9a438790d051f7321c95e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!212 &21206152
+--- !u!212 &21233106
 SpriteRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -99,7 +117,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 9476c88e55474455b91f17190b6c1907, type: 3}
+  m_Sprite: {fileID: 21300000, guid: dae146528a677de4ab709617df298990, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -112,7 +130,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 0}
       propertyPath: m_Radius
-      value: 1.8
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_Layer
@@ -137,6 +155,23 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_Constraints
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: c699af8e91f044d588aa92b3eeaa9ebb, type: 2}
+    - target: {fileID: 0}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: dae146528a677de4ab709617df298990,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_LocalScale.y
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
