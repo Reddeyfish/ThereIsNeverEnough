@@ -12,10 +12,12 @@ public class Fire : MonoBehaviour {
 	bool spawning = false;
 	float timer = 0;
 	float increaseTimer = 0;
+	TileLocation mainBase;
 
 
 	void Start () {
 		worldSize = FindObjectOfType<Terrain> ().WorldSize;
+		mainBase = new TileLocation (0, 0);
 
 		for (int x = 1-worldSize; x < worldSize; x++) {
 			for (int y = 1-worldSize; y < worldSize; y++) {
@@ -36,6 +38,10 @@ public class Fire : MonoBehaviour {
 		if(timer >= fireFrequency){
 			Spawn(GenerateLocation());
 		}
+
+		if (mainBase.Tile.FluidLevel != 0) {
+			SceneManager.LoadScene ("Score");
+		}
 	}
 
 	TileLocation GenerateLocation() {
@@ -46,8 +52,8 @@ public class Fire : MonoBehaviour {
 		spawning = true;
 		timer = 0;
 
+
 		if (spawningLocation.X == 0 && spawningLocation.Y == 0) {
-			Debug.Log ("Fire destoys the main base");
 			SceneManager.LoadScene("Score");
 		}
 
@@ -56,6 +62,8 @@ public class Fire : MonoBehaviour {
 		if (!(result)) {
 			SimplePool.Spawn (firePrefab, spawningLocation).GetComponent<Burn> ().location = spawningLocation;
 		}
+
+
 
 		locations [spawningLocation] = true;
 		spawning = false;
