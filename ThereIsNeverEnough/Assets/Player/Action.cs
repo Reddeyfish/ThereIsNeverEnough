@@ -10,7 +10,7 @@ public class Action : MonoBehaviour, IObservable<PlayerMovedMessage> {
     [SerializeField]
     protected GameObject contructionPrefab;
     [SerializeField]
-    protected GameObject[] roadPrefab;
+    protected GameObject[] roadPrefabs;
     [SerializeField]
     protected GameObject shieldPrefab;
 
@@ -19,9 +19,6 @@ public class Action : MonoBehaviour, IObservable<PlayerMovedMessage> {
 
     [SerializeField]
     protected float accel;
-
-    [SerializeField]
-    protected RoadNode roadNodePrefab;
 
     Observable<PlayerMovedMessage> playerMovedObservable = new Observable<PlayerMovedMessage>();
     public Observable<PlayerMovedMessage> Observable(IObservable<PlayerMovedMessage> self) { return playerMovedObservable; }
@@ -50,7 +47,7 @@ public class Action : MonoBehaviour, IObservable<PlayerMovedMessage> {
 		if (Input.GetMouseButton(0))
 		{
 			// start building a road
-            TrySpawnConstruction(roadPrefab[selectedRoadPrefab], mouseToTileLocation().Tile);
+            TrySpawnConstruction(roadPrefabs[selectedRoadPrefab], mouseToTileLocation().Tile);
 		}
 
         if (Input.GetMouseButton(1))
@@ -93,7 +90,7 @@ public class Action : MonoBehaviour, IObservable<PlayerMovedMessage> {
     }
     public void ConstructRoad()
     {
-        TrySpawnConstruction(roadPrefab[selectedRoadPrefab]);
+        TrySpawnConstruction(roadPrefabs[selectedRoadPrefab]);
     }
     /// <summary>
     /// Attempts to spawn a construction.
@@ -160,6 +157,11 @@ public class Action : MonoBehaviour, IObservable<PlayerMovedMessage> {
     public TileLocation location()
     {
         return new TileLocation(Mathf.RoundToInt(this.transform.position.x), Mathf.RoundToInt(this.transform.position.y));
+    }
+
+    public void ChangeRoadPrefab()
+    {
+        selectedRoadPrefab = (selectedRoadPrefab + 1) % roadPrefabs.Length;
     }
 }
 

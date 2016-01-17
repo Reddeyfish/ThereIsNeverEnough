@@ -20,6 +20,8 @@ public class PlayerInput : MonoBehaviour, IObserver<PlayerMovedMessage> {
             action.ConstructRoad();
         if (Input.GetKeyDown(KeyCode.Alpha2))
             action.ConstructShield();
+        if (Input.GetMouseButtonDown(2))
+            action.ChangeRoadPrefab();
         Vector2 direction = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
         action.direction = direction;
 	}
