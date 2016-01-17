@@ -84,6 +84,23 @@ public class Terrain : MonoBehaviour, IObservable<FluidTick> {
         }
 
         fluidDeltas = new Map<float>(worldSize);
+
+        //create outer bounds
+        PolygonCollider2D coll = gameObject.AddComponent<PolygonCollider2D>();
+        Vector2[] colliderPoints = new Vector2[10];
+        colliderPoints[0] = new Vector2(-1 + worldSize + 0.4f, -1 + worldSize + 0.4f);
+        colliderPoints[1] = new Vector2(-1 + worldSize + 0.4f, 1 - (worldSize + 0.4f));
+        colliderPoints[2] = new Vector2(1 - (worldSize + 0.4f), 1 - (worldSize + 0.4f));
+        colliderPoints[3] = new Vector2(1 - (worldSize + 0.4f), -1 + worldSize + 0.4f);
+        colliderPoints[4] = colliderPoints[0];
+        
+        colliderPoints[5] = colliderPoints[0] + Vector2.one;
+        colliderPoints[6] = colliderPoints[1] + new Vector2(1, -1);
+        colliderPoints[7] = colliderPoints[2] - Vector2.one;
+        colliderPoints[8] = colliderPoints[3] + new Vector2(-1, 1);
+        colliderPoints[9] = colliderPoints[5];
+        
+        coll.points = colliderPoints;
 	}
 
     IEnumerator fluidTick()
