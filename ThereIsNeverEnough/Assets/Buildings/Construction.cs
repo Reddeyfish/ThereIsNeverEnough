@@ -66,6 +66,7 @@ public class Construction : Building
     {
         message.tile.Unsubscribe<FluidCovered>(this);
         message.tile.Building = null;
-        Destroy(this.gameObject);
+        if(this)
+            Destroy(this.gameObject);
     }
 }
