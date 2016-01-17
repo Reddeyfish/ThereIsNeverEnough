@@ -42,6 +42,15 @@ public class Action : MonoBehaviour, IObservable<PlayerMovedMessage> {
 
     void Update()
     {
+		// if the player is clicking
+		if (Input.GetMouseButton(0))
+		{
+			// start building a road
+			Vector3 worldPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+			TileLocation loc = new TileLocation(Mathf.RoundToInt(worldPoint.x), Mathf.RoundToInt(worldPoint.y));
+			BuildRoad(loc);
+		}
+
         Building building = currentLocation.Tile.Building;
         if (building is Construction)
             (building as Construction).Build();
@@ -95,14 +104,18 @@ public class Action : MonoBehaviour, IObservable<PlayerMovedMessage> {
         if (newLocation.X != currentLocation.X || newLocation.Y != currentLocation.Y)
         {
             currentLocation = newLocation;
-            playerMovedObservable.Post(new PlayerMovedMessage(currentLocation));/*
-            RoadNode currentNode = Terrain.self.tiles[currentLocation].GetComponentInChildren<RoadNode>();
-            if (currentNode == null && Terrain.self.tiles[currentLocation].FluidLevel == 0)
-            {
-                GameObject spawnedRoadNode = GameObject.Instantiate(roadNodePrefab);
-				currentLocation.Tile.Road = spawnedRoadNode.GetComponent<RoadNode>();
-            }*/
+            playerMovedObservable.Post(new PlayerMovedMessage(currentLocation));
+            
         }
+	}
+
+	private void BuildRoad(TileLocation location)
+	{
+		if (Terrain.self.validTileLocation(location) && !location.Tile.HasRoad && location.Tile.FluidLevel == 0)
+		{
+			GameObject spawnedRoadNode = Instantiate(roadNodePrefab);
+			location.Tile.Road = spawnedRoadNode.GetComponent<RoadNode>();
+		}
 	}
 
     void OnTriggerEnter2D(Collider2D other)

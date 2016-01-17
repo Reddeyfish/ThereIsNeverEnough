@@ -138,7 +138,6 @@ public class RoadNode : Building, IObserver<Message>, IObserver<FluidCovered>
 	/// <param name="index"></param>
 	private void SetSpriteRenderer(Sprite[] spritesArray, int index)
 	{
-		Debug.Log("sprite : " + index);
 		if (spritesArray.Length > index)
 		{
 			RoadSprite.sprite = spritesArray[index];
