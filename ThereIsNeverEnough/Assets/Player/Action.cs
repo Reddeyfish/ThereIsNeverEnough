@@ -62,13 +62,15 @@ public class Action : MonoBehaviour, IObservable<PlayerMovedMessage> {
 			float scroll = Input.GetAxis("Mouse ScrollWheel");
 			if (scroll > 0)
 			{
-				// scroll up
-                selectedRoadPrefab = Mathf.Min(selectedRoadPrefab + 1, roadPrefabs.Length - 1);
+				selectedRoadPrefab++;
+				if (selectedRoadPrefab > roadPrefabs.Length - 1)
+					selectedRoadPrefab = 0;
 			}
 			else if (scroll < 0)
 			{
-				// scroll down
-				selectedRoadPrefab = Mathf.Max(selectedRoadPrefab - 1, 0);
+				selectedRoadPrefab--;
+				if (selectedRoadPrefab < 0)
+					selectedRoadPrefab = roadPrefabs.Length - 1;
 			}
 		}
 		m_scrollTimer += Time.deltaTime;
