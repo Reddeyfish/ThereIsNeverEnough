@@ -57,15 +57,12 @@ public class HealthBar : MonoBehaviour {
 	}
 
 	public void DecreaseHealth(int rate) {
-		if (currentHealth == maxHealth)
+		AudioSource source = GetComponent<AudioSource>();
+		if (source != null && !source.isPlaying)
 		{
-			AudioSource source = GetComponent<AudioSource>();
-			if (source != null && !source.isPlaying)
-			{
-				source.Play();
-			}
+			source.Play();
+			iTween.ShakePosition(Camera.main.gameObject, iTween.Hash("amount", Vector3.one * 0.2f, "time", 0.8f, "name", "screenshake"));
 		}
-
 
 		CurrentHealth -= Time.deltaTime*rate;
 		if (CurrentHealth < 0)
