@@ -15,6 +15,12 @@ public class CampOfPersons : RoadNode, IObserver<FluidCovered> {
     [SerializeField]
     protected Color activeColor;
 
+    protected override void Start()
+    {
+        base.Start();
+        location.Tile.Height = 1;
+    }
+
     bool active = false;
     public bool Active
     {
