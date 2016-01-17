@@ -9,12 +9,16 @@ public class Burn : MonoBehaviour {
 		if (location.Tile.FluidLevel != 0) {
 			SimplePool.Despawn (this.gameObject);
 			FindObjectOfType<Fire> ().locations [location] = false;
-		}			
+		}
+
+		if (location.Tile.HasRoad) {
+			SimplePool.Despawn (location.Tile.Road.gameObject);
+		}
 	}
 
 
 	void OnTriggerEnter2D(Collider2D collision) {
-		if (collision.gameObject.tag != "Player") {
+		if (collision.gameObject.tag != "Player" && collision.gameObject.tag != "IgnoreRaycast") {
 			SimplePool.Despawn (collision.gameObject);
 		}
 	}
