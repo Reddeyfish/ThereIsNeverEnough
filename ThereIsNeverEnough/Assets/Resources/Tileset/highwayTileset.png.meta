@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 6a27f838dc1e14e7b8b8c5793ae0e441
-timeCreated: 1452992247
+timeCreated: 1452996707
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -77,10 +77,12 @@ TextureImporter:
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: -32, y: 32}
-        - {x: -32, y: -32}
-        - {x: 32, y: -32}
-        - {x: 32, y: 32}
+      - - {x: -3, y: 18}
+        - {x: -3, y: -18}
+        - {x: -1, y: -20}
+        - {x: 32, y: -20}
+        - {x: 32, y: 20}
+        - {x: -1, y: 20}
     - name: highwayTileset_1
       rect:
         serializedVersion: 2
@@ -92,10 +94,10 @@ TextureImporter:
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: -32, y: 32}
-        - {x: -32, y: -32}
-        - {x: 32, y: -32}
-        - {x: 32, y: 32}
+      - - {x: -32, y: -20}
+        - {x: 32, y: -20}
+        - {x: 32, y: 20}
+        - {x: -32, y: 20}
     - name: highwayTileset_2
       rect:
         serializedVersion: 2
@@ -107,10 +109,12 @@ TextureImporter:
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: -32, y: 32}
-        - {x: -32, y: -32}
-        - {x: 32, y: -32}
-        - {x: 32, y: 32}
+      - - {x: -32, y: 20}
+        - {x: -32, y: -20}
+        - {x: 1, y: -20}
+        - {x: 3, y: -18}
+        - {x: 3, y: 18}
+        - {x: 1, y: 20}
     - name: highwayTileset_3
       rect:
         serializedVersion: 2
@@ -122,10 +126,12 @@ TextureImporter:
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: -32, y: 32}
-        - {x: -32, y: -32}
-        - {x: 32, y: -32}
-        - {x: 32, y: 32}
+      - - {x: -20, y: 1}
+        - {x: -20, y: -32}
+        - {x: 20, y: -32}
+        - {x: 20, y: 1}
+        - {x: 18, y: 3}
+        - {x: -18, y: 3}
     - name: highwayTileset_4
       rect:
         serializedVersion: 2
@@ -137,10 +143,12 @@ TextureImporter:
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: -32, y: 32}
-        - {x: -32, y: -32}
-        - {x: 32, y: -32}
-        - {x: 32, y: 32}
+      - - {x: -20, y: 18}
+        - {x: -20, y: -32}
+        - {x: 20, y: -32}
+        - {x: 32, y: -20}
+        - {x: 32, y: 20}
+        - {x: -18, y: 20}
     - name: highwayTileset_5
       rect:
         serializedVersion: 2
@@ -152,10 +160,12 @@ TextureImporter:
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: -32, y: 32}
-        - {x: -32, y: -32}
-        - {x: 32, y: -32}
-        - {x: 32, y: 32}
+      - - {x: -32, y: -20}
+        - {x: -20, y: -32}
+        - {x: 20, y: -32}
+        - {x: 32, y: -20}
+        - {x: 32, y: 20}
+        - {x: -32, y: 20}
     - name: highwayTileset_6
       rect:
         serializedVersion: 2
@@ -167,10 +177,12 @@ TextureImporter:
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: -32, y: 32}
-        - {x: -32, y: -32}
-        - {x: 32, y: -32}
-        - {x: 32, y: 32}
+      - - {x: -32, y: -20}
+        - {x: -20, y: -32}
+        - {x: 20, y: -32}
+        - {x: 20, y: 18}
+        - {x: 18, y: 20}
+        - {x: -32, y: 20}
     - name: highwayTileset_7
       rect:
         serializedVersion: 2
@@ -182,10 +194,10 @@ TextureImporter:
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: -32, y: 32}
-        - {x: -32, y: -32}
-        - {x: 32, y: -32}
-        - {x: 32, y: 32}
+      - - {x: 20, y: -32}
+        - {x: 20, y: 32}
+        - {x: -20, y: 32}
+        - {x: -20, y: -32}
     - name: highwayTileset_8
       rect:
         serializedVersion: 2
@@ -197,10 +209,12 @@ TextureImporter:
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: -32, y: 32}
-        - {x: -32, y: -32}
-        - {x: 32, y: -32}
-        - {x: 32, y: 32}
+      - - {x: -20, y: 32}
+        - {x: -20, y: -32}
+        - {x: 20, y: -32}
+        - {x: 32, y: -20}
+        - {x: 32, y: 20}
+        - {x: 20, y: 32}
     - name: highwayTileset_9
       rect:
         serializedVersion: 2
@@ -212,10 +226,14 @@ TextureImporter:
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: -32, y: 32}
-        - {x: -32, y: -32}
-        - {x: 32, y: -32}
-        - {x: 32, y: 32}
+      - - {x: -20, y: 32}
+        - {x: -32, y: 20}
+        - {x: -32, y: -20}
+        - {x: -20, y: -32}
+        - {x: 20, y: -32}
+        - {x: 32, y: -20}
+        - {x: 32, y: 20}
+        - {x: 20, y: 32}
     - name: highwayTileset_10
       rect:
         serializedVersion: 2
@@ -227,10 +245,12 @@ TextureImporter:
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: -32, y: 32}
-        - {x: -32, y: -32}
-        - {x: 32, y: -32}
-        - {x: 32, y: 32}
+      - - {x: -32, y: -20}
+        - {x: -20, y: -32}
+        - {x: 20, y: -32}
+        - {x: 20, y: 32}
+        - {x: -20, y: 32}
+        - {x: -32, y: 20}
     - name: highwayTileset_11
       rect:
         serializedVersion: 2
@@ -242,10 +262,12 @@ TextureImporter:
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: -32, y: 32}
-        - {x: -32, y: -32}
-        - {x: 32, y: -32}
-        - {x: 32, y: 32}
+      - - {x: -20, y: 32}
+        - {x: -20, y: -1}
+        - {x: -18, y: -3}
+        - {x: 18, y: -3}
+        - {x: 20, y: -1}
+        - {x: 20, y: 32}
     - name: highwayTileset_12
       rect:
         serializedVersion: 2
@@ -257,10 +279,12 @@ TextureImporter:
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: -32, y: 32}
-        - {x: -32, y: -32}
-        - {x: 32, y: -32}
-        - {x: 32, y: 32}
+      - - {x: -20, y: 32}
+        - {x: -20, y: -18}
+        - {x: -18, y: -20}
+        - {x: 32, y: -20}
+        - {x: 32, y: 20}
+        - {x: 20, y: 32}
     - name: highwayTileset_13
       rect:
         serializedVersion: 2
@@ -272,10 +296,12 @@ TextureImporter:
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: -32, y: 32}
-        - {x: -32, y: -32}
-        - {x: 32, y: -32}
-        - {x: 32, y: 32}
+      - - {x: -20, y: 32}
+        - {x: -32, y: 20}
+        - {x: -32, y: -20}
+        - {x: 32, y: -20}
+        - {x: 32, y: 20}
+        - {x: 20, y: 32}
     - name: highwayTileset_14
       rect:
         serializedVersion: 2
@@ -287,25 +313,12 @@ TextureImporter:
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: -32, y: 32}
-        - {x: -32, y: -32}
-        - {x: 32, y: -32}
-        - {x: 32, y: 32}
-    - name: highwayTileset_15
-      rect:
-        serializedVersion: 2
-        x: 192
-        y: 0
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -32, y: 32}
-        - {x: -32, y: -32}
-        - {x: 32, y: -32}
-        - {x: 32, y: 32}
+      - - {x: -20, y: 32}
+        - {x: -32, y: 20}
+        - {x: -32, y: -20}
+        - {x: 18, y: -20}
+        - {x: 20, y: -18}
+        - {x: 20, y: 32}
     outline: []
   spritePackingTag: 
   userData: 

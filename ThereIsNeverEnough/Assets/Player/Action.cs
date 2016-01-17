@@ -121,6 +121,10 @@ public class Action : MonoBehaviour, IObservable<PlayerMovedMessage> {
 		if (Terrain.self.validTileLocation(location) && location.Tile.CanBuildRoad(roadNodePrefab))
 		{
 			GameObject spawnedRoadNode = Instantiate(roadNodePrefab.gameObject);
+			if (location.Tile.HasRoad)
+			{
+				Destroy(location.Tile.Road.gameObject);
+			}
 			location.Tile.Road = spawnedRoadNode.GetComponent<RoadNode>();
 		}
 	}

@@ -68,7 +68,6 @@ public abstract class AbstractTile : MonoBehaviour, IObservable<FluidCovered> {
 	{
 		if (FluidLevel != 0)
 			return false;
-
 		if (HasRoad)
 			return false;
 
