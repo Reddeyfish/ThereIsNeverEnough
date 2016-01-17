@@ -5,6 +5,8 @@ public class FluidSpawner : MonoBehaviour, IObserver<FluidTick> {
 
     AbstractTile tile;
 
+    float tickAmount = 0.05f;
+
     void Start()
     {
         Terrain.self.Subscribe(this);
@@ -13,6 +15,7 @@ public class FluidSpawner : MonoBehaviour, IObserver<FluidTick> {
 
     public void Notify(FluidTick tick)
     {
-        tile.FluidLevel += 0.05f;
+        tile.FluidLevel += tickAmount;
+        tickAmount *= 1.001f;
     }
 }

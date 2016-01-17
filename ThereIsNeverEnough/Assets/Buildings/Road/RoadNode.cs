@@ -21,6 +21,14 @@ public class RoadNode : Building, IObserver<Message>, IObserver<FluidCovered>
 
 	private const string TilesetLocation = "Tileset";
 
+    public override float buildTime
+    {
+        get
+        {
+            return 0.15f;
+        }
+    } 
+
     void Awake()
     {
         Observers.Subscribe(this, RecreatePathsMessage.type);
