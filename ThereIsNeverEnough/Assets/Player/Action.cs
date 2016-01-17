@@ -21,7 +21,7 @@ public class Action : MonoBehaviour, IObservable<PlayerMovedMessage> {
     protected float accel;
 
     [SerializeField]
-    protected GameObject roadNodePrefab;
+    protected RoadNode roadNodePrefab;
 
     Observable<PlayerMovedMessage> playerMovedObservable = new Observable<PlayerMovedMessage>();
     public Observable<PlayerMovedMessage> Observable(IObservable<PlayerMovedMessage> self) { return playerMovedObservable; }
@@ -112,11 +112,15 @@ public class Action : MonoBehaviour, IObservable<PlayerMovedMessage> {
         }
 	}
 
+	/// <summary>
+	/// Create a road at the location if it's possible to create a road
+	/// </summary>
+	/// <param name="location"></param>
 	private void BuildRoad(TileLocation location)
 	{
-		if (Terrain.self.validTileLocation(location) && !location.Tile.HasRoad && location.Tile.FluidLevel == 0)
+		if (Terrain.self.validTileLocation(location) && !location.Tile.CanBuildRoad(roadNodePrefab))
 		{
-			GameObject spawnedRoadNode = Instantiate(roadNodePrefab);
+			GameObject spawnedRoadNode = Instantiate(roadNodePrefab.gameObject);
 			location.Tile.Road = spawnedRoadNode.GetComponent<RoadNode>();
 		}
 	}

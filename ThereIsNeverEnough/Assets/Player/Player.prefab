@@ -196,7 +196,7 @@ MonoBehaviour:
   shieldPrefab: {fileID: 182016, guid: 0217bc9c4dc30204c94a02403466a852, type: 2}
   speed: 5
   accel: 30
-  roadNodePrefab: {fileID: 100226, guid: 51ee4feca5ad03441b5fbbc211d12aee, type: 2}
+  roadNodePrefab: {fileID: 11464784, guid: 51ee4feca5ad03441b5fbbc211d12aee, type: 2}
 --- !u!212 &21212316
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -322,7 +322,12 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: roadNodePrefab
+      value: 
+      objectReference: {fileID: 11464784, guid: 51ee4feca5ad03441b5fbbc211d12aee,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 152560}
