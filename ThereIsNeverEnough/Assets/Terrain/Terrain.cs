@@ -73,13 +73,14 @@ public class Terrain : MonoBehaviour, IObservable<FluidTick> {
         tiles[worldSize - 1][1 - worldSize].gameObject.AddComponent<FluidSpawner>();
         tiles[worldSize - 1][worldSize - 1].gameObject.AddComponent<FluidSpawner>();
 
-        tiles[0][0].Building = spawnedMainBase.GetComponent<RoadNode>();
+        tiles[0][0].Road = spawnedMainBase.GetComponent<RoadNode>();
 
         for (int i = 0; i < 5; i++)
         {
             GameObject spawnedPeople = GameObject.Instantiate(peoplePrefab);
             TileLocation location = new TileLocation(Random.Range(1-worldSize, worldSize), Random.Range(1-worldSize, worldSize));
             tiles[location].Road = spawnedPeople.GetComponent<RoadNode>();
+            Debug.Log(tiles[location].Road);
         }
 
         fluidDeltas = new Map<float>(worldSize);
