@@ -9,6 +9,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 499454}
   - 212: {fileID: 21212316}
+  - 58: {fileID: 5865808}
   m_Layer: 13
   m_Name: MinimapVisuals
   m_TagString: Untagged
@@ -127,6 +128,20 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.1
+--- !u!58 &5865808
+CircleCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 128878}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5
 --- !u!114 &11400258
 MonoBehaviour:
   m_ObjectHideFlags: 1
