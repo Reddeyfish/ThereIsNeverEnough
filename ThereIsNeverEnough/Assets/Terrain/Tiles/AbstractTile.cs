@@ -66,10 +66,9 @@ public abstract class AbstractTile : MonoBehaviour, IObservable<FluidCovered> {
 	/// <returns></returns>
 	public virtual bool CanBuildRoad(RoadNode road)
 	{
-		if (FluidLevel == 0)
+		if (FluidLevel != 0)
 			return false;
-
-		if (HasRoad && road.RoadSprite == m_road.RoadSprite)
+		if (HasRoad)
 			return false;
 
 		return true;
