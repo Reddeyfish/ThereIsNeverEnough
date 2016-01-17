@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
 
 [RequireComponent(typeof(SpriteRenderer))]
@@ -11,7 +12,7 @@ public class MainBase : RoadNode {
 	// Use this for initialization
 	protected override void Start () {
         distanceFromMainBase = 0;
-        location = new TileLocation(0, 0);
+        location = new TileLocation(0,0);
 	}
 
     public void addRescue()
@@ -24,6 +25,7 @@ public class MainBase : RoadNode {
     {
         Debug.Log("Game End!");
 		base.Notify(fc);
+		SceneManager.LoadScene("Score");
     }
 
     public override void Receive(Person person)

@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 
 public class Fire : MonoBehaviour {
 	public float fireFrequency;
-//	public float timeToIncrease;
 	public GameObject firePrefab;
 	public Dictionary<TileLocation,bool> locations = new Dictionary<TileLocation,bool>();
 
@@ -36,11 +36,6 @@ public class Fire : MonoBehaviour {
 		if(timer >= fireFrequency){
 			Spawn(GenerateLocation());
 		}
-
-//		if (increaseTimer >= timeToIncrease) {
-//			fireFrequency /= 2;
-//			increaseTimer = 0;
-//		}
 	}
 
 	TileLocation GenerateLocation() {
@@ -50,6 +45,10 @@ public class Fire : MonoBehaviour {
 	void Spawn(TileLocation spawningLocation) {
 		spawning = true;
 		timer = 0;
+
+		if (spawningLocation.X == 0 && spawningLocation.Y == 0) {
+			SceneManager.LoadScene("Score");
+		}
 
 		bool result;
 		locations.TryGetValue (spawningLocation, out result);
