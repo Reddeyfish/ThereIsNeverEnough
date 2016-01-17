@@ -60,6 +60,9 @@ public class Action : MonoBehaviour, IObservable<PlayerMovedMessage> {
     /// </summary>
     void TrySpawnConstruction(GameObject completedBuildingPrefab)
     {
+        if (currentLocation.Tile.FluidLevel != 0)
+            return;
+
         Building building = currentLocation.Tile.Building;
         if (building is Construction)
         {

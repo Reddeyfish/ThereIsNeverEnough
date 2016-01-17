@@ -153,7 +153,7 @@ public class Terrain : MonoBehaviour, IObservable<FluidTick> {
             for (int y = 1 - worldSize; y < worldSize; y++)
             {
                 float newLevel = tiles[x][y].FluidLevel + fluidDeltas[x][y];
-                tiles[x][y].FluidLevel = newLevel;
+                tiles[x][y].FluidLevel = newLevel > defenceHeightBonuses[x][y] ? newLevel : 0;
                 fluidDeltas[x][y] = 0;
             }
         }
