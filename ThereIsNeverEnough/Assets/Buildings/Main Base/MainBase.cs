@@ -18,14 +18,15 @@ public class MainBase : RoadNode {
     public void addRescue()
     {
         score++;
-        Debug.Log(score);
+//        Debug.Log(score);
     }
 
     public override void Notify(FluidCovered fc)
     {
         Debug.Log("Game End!");
-		base.Notify(fc);
 		SceneManager.LoadScene("Score");
+		base.Notify(fc);
+
     }
 
     public override void Receive(Person person)
