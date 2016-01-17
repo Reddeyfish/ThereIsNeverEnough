@@ -34,29 +34,52 @@ public class RoadNode : Building, IObserver<Message>, IObserver<FluidCovered>
         Observers.Subscribe(this, RecreatePathsMessage.type);
     }
 
-	protected override void Start () {
-        base.Start();
-        distanceFromMainBase = int.MaxValue - 10;
-        
-        //add neighbors
-        for (int i = 1; i < 5; ++i)
-        {
-            Directions direction = (Directions)i;
-            if (direction == Directions.None)
-                continue;
+	protected override void Start ()
+	{
+		base.Start();
+		distanceFromMainBase = int.MaxValue - 10;
 
-            if (Terrain.self.validTileLocation(location.Adjacent(direction)) && location.Adjacent(direction).Tile.HasRoad)
-            {
-                neighbors.Add(direction);
-                location.Adjacent(direction).Tile.Road.neighbors.Add(direction.inverse());
+		//add neighbors
+		for (int i = 1; i < 5; ++i)
+		{
+			Directions direction = (Directions)i;
+			if (direction == Directions.None)
+				continue;
 
-				location.Adjacent(direction).Tile.Road.SetSprite();
-            }
-        }
+			if (Terrain.self.validTileLocation(location.Adjacent(direction)) && location.Adjacent(direction).Tile.HasRoad)
+			{
+				neighbors.Add(direction);
+				location.Adjacent(direction).Tile.Road.neighbors.Add(direction.inverse());
+			}
+		}
 
+		UpdateNeighboringRoadSprites();
 		SetSprite();
 
-        RecalculatePathing();
+		RecalculatePathing();
+	}
+
+	private void OnDestroy()
+	{
+		UpdateNeighboringRoadSprites();
+	}
+
+	/// <summary>
+	/// Updates the sprites of roads up down left right of this road
+	/// </summary>
+	private void UpdateNeighboringRoadSprites()
+	{
+		for (int i = 1; i < 5; ++i)
+		{
+			Directions direction = (Directions)i;
+			if (direction == Directions.None)
+				continue;
+
+			if (Terrain.self.validTileLocation(location.Adjacent(direction)) && location.Adjacent(direction).Tile.HasRoad)
+			{
+				location.Adjacent(direction).Tile.Road.SetSprite();
+			}
+		}
 	}
 
 	/// <summary>
@@ -135,6 +158,10 @@ public class RoadNode : Building, IObserver<Message>, IObserver<FluidCovered>
 
 			case ConnectionsFlag.Right:
 				SetSpriteRenderer(spritesArray, 0);
+				break;
+
+			default:
+				SetSpriteRenderer(spritesArray, 9);
 				break;
 		}
 	}
