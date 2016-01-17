@@ -108,8 +108,15 @@ public class Terrain : MonoBehaviour, IObservable<FluidTick> {
         for (; ; )
         {
             yield return new WaitForSeconds(tickSpeed);
-            fluidTickObservable.Post(new FluidTick());
-            doFluidFlow();
+            try
+            {
+                fluidTickObservable.Post(new FluidTick());
+                doFluidFlow();
+            }
+            catch (System.Exception e)
+            {
+                Debug.Log(e.Message);
+            }
         }
     }
 

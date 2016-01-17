@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.SceneManagement;
 using System.Collections;
 
 [RequireComponent(typeof(SpriteRenderer))]
@@ -24,7 +23,6 @@ public class MainBase : RoadNode {
     public override void Notify(FluidCovered fc)
     {
         Debug.Log("Game End!");
-		SceneManager.LoadScene("Score");
 		base.Notify(fc);
 
     }
