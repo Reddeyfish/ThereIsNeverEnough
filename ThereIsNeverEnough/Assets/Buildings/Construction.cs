@@ -82,13 +82,13 @@ public class Construction : Building
 
     public override void Notify(FluidCovered message)
     {
+        location.Tile.Building = null;
         DestroySelf();
     }
 
     void DestroySelf()
     {
         location.Tile.Unsubscribe<FluidCovered>(this);
-        location.Tile.Building = null;
 		if (gameObject != null)
 		{
 			Destroy(gameObject);
