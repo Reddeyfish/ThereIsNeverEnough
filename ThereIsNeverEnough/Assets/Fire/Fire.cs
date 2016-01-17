@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class Fire : MonoBehaviour {
 	public float fireFrequency;
-	public float timeToIncrease;
+//	public float timeToIncrease;
 	public GameObject firePrefab;
 	public Dictionary<TileLocation,bool> locations = new Dictionary<TileLocation,bool>();
 
@@ -37,10 +37,10 @@ public class Fire : MonoBehaviour {
 			Spawn(GenerateLocation());
 		}
 
-		if (increaseTimer >= timeToIncrease) {
-			fireFrequency /= 2;
-			increaseTimer = 0;
-		}
+//		if (increaseTimer >= timeToIncrease) {
+//			fireFrequency /= 2;
+//			increaseTimer = 0;
+//		}
 	}
 
 	TileLocation GenerateLocation() {
