@@ -31,6 +31,9 @@ public class Action : MonoBehaviour, IObservable<PlayerMovedMessage> {
     TileLocation currentLocation;
 	private int selectedRoadPrefab = 0;
 
+	private const float changeRoadsDelay = 0.8f;
+	private float m_scrollTimer = 0;
+
     void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
@@ -55,6 +58,23 @@ public class Action : MonoBehaviour, IObservable<PlayerMovedMessage> {
             // start building a wall
             TrySpawnConstruction(shieldPrefab, mouseToTileLocation().Tile);
         }
+
+		if (Input.GetAxis("Mouse ScrollWheel") != 0 && m_scrollTimer > changeRoadsDelay)
+		{
+			m_scrollTimer = 0f;
+			float scroll = Input.GetAxis("Mouse ScrollWheel");
+			if (scroll > 0)
+			{
+				// scroll up
+				selectedRoadPrefab = Mathf.Min(selectedRoadPrefab + 1, roadPrefab.Length - 1);
+			}
+			else if (scroll < 0)
+			{
+				// scroll down
+				selectedRoadPrefab = Mathf.Max(selectedRoadPrefab - 1, 0);
+			}
+		}
+		m_scrollTimer += Time.deltaTime;
 
         Building building = currentLocation.Tile.Building;
         if (building != null && building is Construction)

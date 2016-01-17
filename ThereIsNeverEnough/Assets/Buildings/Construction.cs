@@ -89,6 +89,9 @@ public class Construction : Building
     {
         location.Tile.Unsubscribe<FluidCovered>(this);
         location.Tile.Building = null;
-        Destroy(this.gameObject);
+		if (gameObject != null)
+		{
+			Destroy(gameObject);
+		}
     }
 }

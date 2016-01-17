@@ -61,7 +61,7 @@ public class HealthBar : MonoBehaviour {
 		if (source != null && !source.isPlaying)
 		{
 			source.Play();
-			iTween.ShakePosition(Camera.main.gameObject, iTween.Hash("amount", Vector3.one * 0.2f, "time", 0.8f, "name", "screenshake"));
+			iTween.ShakePosition(Camera.main.gameObject, iTween.Hash("amount", Vector3.one * 0.2f, "time", 0.3f, "name", "screenshake", "oncomplete", "ResetCam", "oncompletetarget", gameObject));
 		}
 
 		CurrentHealth -= Time.deltaTime*rate;
@@ -73,4 +73,11 @@ public class HealthBar : MonoBehaviour {
 		}
 	}
 
+	/// <summary>
+	/// resets the camera after a good screenshake
+	/// </summary>
+	public void ResetCam()
+	{
+		iTween.MoveTo(Camera.main.gameObject, iTween.Hash("position", new Vector3(0, 0, -10), "time", 0.5f, "islocal", true));
+	}
 }
