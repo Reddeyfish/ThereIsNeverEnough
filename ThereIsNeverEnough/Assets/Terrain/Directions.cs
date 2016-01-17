@@ -25,4 +25,26 @@ public static class DirectionsExtension
                 return Directions.None;
         }
     }
+
+	/// <summary>
+	/// Returns the corresponding Connections Flag
+	/// </summary>
+	/// <param name="d"></param>
+	/// <returns></returns>
+	public static ConnectionsFlag ToConnect(this Directions d)
+	{
+		switch (d)
+		{
+			case Directions.Up:
+				return ConnectionsFlag.Up;
+			case Directions.Down:
+				return ConnectionsFlag.Down;
+			case Directions.Left:
+				return ConnectionsFlag.Left;
+			case Directions.Right:
+				return ConnectionsFlag.Right;
+			default:
+				return ConnectionsFlag.None;
+		}
+	}
 }
