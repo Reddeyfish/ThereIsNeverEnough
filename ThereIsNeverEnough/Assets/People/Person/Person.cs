@@ -12,8 +12,11 @@ public class Person : MonoBehaviour {
         get { return target; }
         set
         {
-            target = value;
-            transform.rotation = ((Vector2)(target.transform.position - (transform.position))).ToRotation();
+            if (value != null)
+            {
+                target = value;
+                transform.rotation = ((Vector2)(target.transform.position - (transform.position))).ToRotation();
+            }
         }
     }
 

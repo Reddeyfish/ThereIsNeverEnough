@@ -57,16 +57,20 @@ public class Construction : Building
             {
                 location.Tile.Building = finishedBuilding;
             }
+
             
-            Destroy(this.gameObject);
         }
     }
 
     public override void Notify(FluidCovered message)
     {
-        message.tile.Unsubscribe<FluidCovered>(this);
-        message.tile.Building = null;
-        if(this)
-            Destroy(this.gameObject);
+        DestroySelf();
+    }
+
+    void DestroySelf()
+    {
+        location.Tile.Unsubscribe<FluidCovered>(this);
+        location.Tile.Building = null;
+        Destroy(this.gameObject);
     }
 }
