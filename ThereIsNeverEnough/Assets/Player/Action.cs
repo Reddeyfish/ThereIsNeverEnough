@@ -46,14 +46,24 @@ public class Action : MonoBehaviour, IObservable<PlayerMovedMessage> {
 		if (Input.GetMouseButton(0))
 		{
 			// start building a road
-			Vector3 worldPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-			TileLocation loc = new TileLocation(Mathf.RoundToInt(worldPoint.x), Mathf.RoundToInt(worldPoint.y));
-			BuildRoad(loc);
+            TrySpawnConstruction(roadPrefab, mouseToTileLocation().Tile);
 		}
+
+        if (Input.GetMouseButton(1))
+        {
+            // start building a wall
+            TrySpawnConstruction(shieldPrefab, mouseToTileLocation().Tile);
+        }
 
         Building building = currentLocation.Tile.Building;
         if (building is Construction)
             (building as Construction).Build();
+    }
+
+    TileLocation mouseToTileLocation()
+    {
+        Vector3 worldPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        return new TileLocation(Mathf.RoundToInt(worldPoint.x), Mathf.RoundToInt(worldPoint.y));
     }
 
     public void ConstructShield()
@@ -115,15 +125,6 @@ public class Action : MonoBehaviour, IObservable<PlayerMovedMessage> {
             playerMovedObservable.Post(new PlayerMovedMessage(currentLocation));
             
         }
-	}
-
-	/// <summary>
-	/// Create a road at the location if it's possible to create a road
-	/// </summary>
-	/// <param name="location"></param>
-	private void BuildRoad(TileLocation location)
-	{
-        TrySpawnConstruction(roadPrefab, location.Tile);
 	}
 
     void OnTriggerEnter2D(Collider2D other)

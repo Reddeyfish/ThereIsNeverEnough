@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using System.Collections;
 
 [RequireComponent(typeof(Image))]
@@ -60,6 +61,8 @@ public class HealthBar : MonoBehaviour {
 		if (CurrentHealth < 0)
 		{
 			Debug.Log("Player Death");
+			PlayerPrefs.SetInt ("Dead", 1);
+			SceneManager.LoadScene("Score");
 		}
 	}
 

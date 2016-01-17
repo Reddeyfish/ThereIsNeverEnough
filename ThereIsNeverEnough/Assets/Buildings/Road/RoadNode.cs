@@ -272,7 +272,7 @@ public class RoadNode : Building, IObserver<Message>, IObserver<FluidCovered>
         DestroySelf();
 	}
 
-    void DestroySelf()
+    public void DestroySelf()
     {
         //remove self from linkings
         for (int i = 0; i < neighbors.Count; i++)
@@ -287,10 +287,8 @@ public class RoadNode : Building, IObserver<Message>, IObserver<FluidCovered>
         Observers.Unsubscribe(this, RecreatePathsMessage.type);
         //recreate pathings
         Observers.Post(new RecreatePathsMessage());
-		if (gameObject != null)
-		{
-			Destroy(gameObject);
-		}
+        location.Tile.Unsubscribe<FluidCovered>(this);
+        Destroy(gameObject);
     }
 }
 
