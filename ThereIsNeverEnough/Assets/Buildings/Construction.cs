@@ -58,7 +58,7 @@ public class Construction : Building
                 location.Tile.Building = finishedBuilding;
             }
 
-            
+            DestroySelf();
         }
     }
 
