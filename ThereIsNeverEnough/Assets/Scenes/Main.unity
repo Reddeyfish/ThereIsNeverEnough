@@ -348,6 +348,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fireFrequency: 2
+  timeToIncrease: 30
   firePrefab: {fileID: 183586, guid: 1b0f36efc681541d9932a499ca5dbf64, type: 2}
 --- !u!4 &865940783
 Transform:

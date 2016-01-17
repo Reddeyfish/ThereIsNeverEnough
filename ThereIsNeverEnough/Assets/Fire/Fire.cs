@@ -4,12 +4,14 @@ using System.Collections.Generic;
 
 public class Fire : MonoBehaviour {
 	public float fireFrequency;
+	public float timeToIncrease;
 	public GameObject firePrefab;
 	public Dictionary<TileLocation,bool> locations = new Dictionary<TileLocation,bool>();
 
 	int worldSize;
 	bool spawning = false;
 	float timer = 0;
+	float increaseTimer = 0;
 
 
 	void Start () {
@@ -25,12 +27,19 @@ public class Fire : MonoBehaviour {
 		
 	// Update is called once per frame
 	void Update () {
+		increaseTimer += Time.deltaTime;
+
 		if(!spawning){
 			timer += Time.deltaTime;
 		}
 
 		if(timer >= fireFrequency){
 			Spawn(GenerateLocation());
+		}
+
+		if (increaseTimer >= timeToIncrease) {
+			fireFrequency /= 2;
+			increaseTimer = 0;
 		}
 	}
 
