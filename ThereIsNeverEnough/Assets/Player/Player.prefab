@@ -78,7 +78,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 152560}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 499454}
@@ -210,7 +210,7 @@ MonoBehaviour:
   roadPrefab: {fileID: 100226, guid: 51ee4feca5ad03441b5fbbc211d12aee, type: 2}
   shieldPrefab: {fileID: 182016, guid: 0217bc9c4dc30204c94a02403466a852, type: 2}
   speed: 5
-  accel: 30
+  accel: 50
   roadNodePrefab: {fileID: 11464784, guid: 51ee4feca5ad03441b5fbbc211d12aee, type: 2}
 --- !u!212 &21212316
 SpriteRenderer:

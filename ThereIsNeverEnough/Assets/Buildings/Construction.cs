@@ -61,6 +61,7 @@ public class Construction : Building
             }
 
 			Instantiate(ConstructionCompleteVFX, transform.position, Quaternion.identity);
+            DestroySelf();
         }
     }
 

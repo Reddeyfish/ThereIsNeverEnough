@@ -67,37 +67,42 @@ public class Action : MonoBehaviour, IObservable<PlayerMovedMessage> {
     /// <summary>
     /// Attempts to spawn a construction.
     /// </summary>
-    void TrySpawnConstruction(GameObject completedBuildingPrefab)
+    void TrySpawnConstruction(GameObject completedBuildingPrefab, AbstractTile tile)
     {
-        if (currentLocation.Tile.FluidLevel != 0)
+        if (tile.FluidLevel != 0)
             return;
 
-        Building building = currentLocation.Tile.Building;
+        Building building = tile.Building;
         if (building is Construction)
         {
             if(building)
                 Destroy(building.gameObject);
-            SpawnConstruction(completedBuildingPrefab);
+            SpawnConstruction(completedBuildingPrefab, tile);
         }
-        else if(currentLocation.Tile.Road == null && completedBuildingPrefab.GetComponent<Building>() is RoadNode)
+        else if (tile.Road == null && completedBuildingPrefab.GetComponent<Building>() is RoadNode)
         {
-            SpawnConstruction(completedBuildingPrefab);
+            SpawnConstruction(completedBuildingPrefab, tile);
         }
         else if (building == null && !(completedBuildingPrefab.GetComponent<Building>() is RoadNode))
         {
-            SpawnConstruction(completedBuildingPrefab);
+            SpawnConstruction(completedBuildingPrefab, tile);
         }
+    }
+
+    void TrySpawnConstruction(GameObject completedBuildingPrefab)
+    {
+        TrySpawnConstruction(completedBuildingPrefab, currentLocation.Tile);
     }
 
     /// <summary>
     /// Used by TrySpawnConstruction() to instantiate a construction.
     /// </summary>
     /// <param name="completedBuildingPrefab"></param>
-    void SpawnConstruction(GameObject completedBuildingPrefab)
+    void SpawnConstruction(GameObject completedBuildingPrefab, AbstractTile tile)
     {
             Construction construction = GameObject.Instantiate(contructionPrefab).GetComponent<Construction>();
             construction.CompletedBuildingPrefab = completedBuildingPrefab;
-            location().Tile.Building = construction;
+            tile.Building = construction;
     }
 	
 	// Update is called once per frame
@@ -118,11 +123,7 @@ public class Action : MonoBehaviour, IObservable<PlayerMovedMessage> {
 	/// <param name="location"></param>
 	private void BuildRoad(TileLocation location)
 	{
-		if (Terrain.self.validTileLocation(location) && location.Tile.CanBuildRoad(roadNodePrefab))
-		{
-			GameObject spawnedRoadNode = Instantiate(roadNodePrefab.gameObject);
-			location.Tile.Road = spawnedRoadNode.GetComponent<RoadNode>();
-		}
+        TrySpawnConstruction(roadPrefab, location.Tile);
 	}
 
     void OnTriggerEnter2D(Collider2D other)
