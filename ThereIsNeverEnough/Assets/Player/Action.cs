@@ -63,7 +63,7 @@ public class Action : MonoBehaviour, IObservable<PlayerMovedMessage> {
 			if (scroll > 0)
 			{
 				// scroll up
-				selectedRoadPrefab = Mathf.Min(selectedRoadPrefab + 1, roadPrefab.Length - 1);
+                selectedRoadPrefab = Mathf.Min(selectedRoadPrefab + 1, roadPrefabs.Length - 1);
 			}
 			else if (scroll < 0)
 			{
