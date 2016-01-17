@@ -29,6 +29,7 @@ GameObject:
   - 114: {fileID: 11451578}
   - 114: {fileID: 11400258}
   - 82: {fileID: 8215702}
+  - 82: {fileID: 8229500}
   m_Layer: 5
   m_Name: HealthBar
   m_TagString: Untagged
@@ -217,6 +218,80 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!82 &8229500
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 132818}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 991f33ac9484e1444848288b64c7b62d, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 0.85
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!114 &11400258
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -282,7 +357,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   building: 0
   contructionPrefab: {fileID: 132186, guid: 28ca6ed24a0945545972a4dfa32963ad, type: 2}
-  roadPrefab: {fileID: 100226, guid: 51ee4feca5ad03441b5fbbc211d12aee, type: 2}
+  roadPrefab:
+  - {fileID: 100226, guid: 51ee4feca5ad03441b5fbbc211d12aee, type: 2}
+  - {fileID: 100226, guid: c4b2fa2507dbaea4e858f6dddf092cae, type: 2}
+  - {fileID: 100226, guid: 53077a253c45d6d489580a81149cd1af, type: 2}
   shieldPrefab: {fileID: 182016, guid: 0217bc9c4dc30204c94a02403466a852, type: 2}
   speed: 5
   accel: 50

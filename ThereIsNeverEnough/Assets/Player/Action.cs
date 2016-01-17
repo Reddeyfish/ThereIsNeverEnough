@@ -10,7 +10,7 @@ public class Action : MonoBehaviour, IObservable<PlayerMovedMessage> {
     [SerializeField]
     protected GameObject contructionPrefab;
     [SerializeField]
-    protected GameObject roadPrefab;
+    protected GameObject[] roadPrefab;
     [SerializeField]
     protected GameObject shieldPrefab;
 
@@ -29,6 +29,7 @@ public class Action : MonoBehaviour, IObservable<PlayerMovedMessage> {
     Rigidbody2D rigid;
 
     TileLocation currentLocation;
+	private int selectedRoadPrefab = 0;
 
     void Awake()
     {
@@ -46,7 +47,7 @@ public class Action : MonoBehaviour, IObservable<PlayerMovedMessage> {
 		if (Input.GetMouseButton(0))
 		{
 			// start building a road
-            TrySpawnConstruction(roadPrefab, mouseToTileLocation().Tile);
+            TrySpawnConstruction(roadPrefab[selectedRoadPrefab], mouseToTileLocation().Tile);
 		}
 
         if (Input.GetMouseButton(1))
@@ -72,7 +73,7 @@ public class Action : MonoBehaviour, IObservable<PlayerMovedMessage> {
     }
     public void ConstructRoad()
     {
-        TrySpawnConstruction(roadPrefab);
+        TrySpawnConstruction(roadPrefab[selectedRoadPrefab]);
     }
     /// <summary>
     /// Attempts to spawn a construction.
