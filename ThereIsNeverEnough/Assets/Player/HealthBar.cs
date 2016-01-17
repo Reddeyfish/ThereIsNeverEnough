@@ -37,16 +37,12 @@ public class HealthBar : MonoBehaviour {
     {
         action = GetComponentInParent<Action>();
     }
-	
+		
 	// Update is called once per frame
 	void Update () {
-        if (action.location().Tile.FluidLevel != 0)
+		if (action.location().Tile.FluidLevel != 0)
         {
-            CurrentHealth -= Time.deltaTime;
-            if (CurrentHealth < 0)
-            {
-                Debug.Log("Player Death");
-            }
+			DecreaseHealth (1);
         }
         else if (CurrentHealth < maxHealth)
         {
@@ -58,4 +54,13 @@ public class HealthBar : MonoBehaviour {
             }
         }
 	}
+
+	public void DecreaseHealth(int rate) {
+		CurrentHealth -= Time.deltaTime*rate;
+		if (CurrentHealth < 0)
+		{
+			Debug.Log("Player Death");
+		}
+	}
+
 }

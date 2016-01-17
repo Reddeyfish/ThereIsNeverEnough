@@ -5,12 +5,12 @@ using System.Collections.Generic;
 public class Fire : MonoBehaviour {
 	public float fireFrequency;
 	public GameObject firePrefab;
+	public Dictionary<TileLocation,bool> locations = new Dictionary<TileLocation,bool>();
 
 	int worldSize;
 	bool spawning = false;
 	float timer = 0;
 
-	Dictionary<TileLocation,bool> locations = new Dictionary<TileLocation,bool>();
 
 	void Start () {
 		worldSize = FindObjectOfType<Terrain> ().WorldSize;
@@ -22,8 +22,7 @@ public class Fire : MonoBehaviour {
 			}
 		}
 	}
-
-	
+		
 	// Update is called once per frame
 	void Update () {
 		if(!spawning){
@@ -31,7 +30,7 @@ public class Fire : MonoBehaviour {
 		}
 
 		if(timer >= fireFrequency){
-			Spawn();
+			Spawn(GenerateLocation());
 		}
 	}
 
@@ -39,19 +38,17 @@ public class Fire : MonoBehaviour {
 		return new TileLocation (UnityEngine.Random.Range (1-worldSize, worldSize), UnityEngine.Random.Range (1-worldSize, worldSize));
 	}
 
-	void Spawn() {
+	void Spawn(TileLocation spawningLocation) {
 		spawning = true;
 		timer = 0;
 
 		bool result;
-		TileLocation location = GenerateLocation ();
-		locations.TryGetValue (location, out result);
-
+		locations.TryGetValue (spawningLocation, out result);
 		if (!(result)) {
-			SimplePool.Spawn (firePrefab, location);
+			SimplePool.Spawn (firePrefab, spawningLocation).GetComponent<Burn> ().location = spawningLocation;
 		}
 
-		locations [location] = true;
+		locations [spawningLocation] = true;
 		spawning = false;
 	}
 }
