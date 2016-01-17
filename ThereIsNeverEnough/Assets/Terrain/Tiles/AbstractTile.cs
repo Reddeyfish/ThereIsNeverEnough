@@ -29,26 +29,30 @@ public abstract class AbstractTile : MonoBehaviour, IObservable<FluidCovered> {
 		set
 		{
 			m_road = value;
-			m_road.gameObject.transform.SetParent(transform, false);
+			m_road.transform.SetParent(transform, false);
 		}
 	}
 
-	private RoadNode m_road;
+    private RoadNode m_road;
 
-    public Defence Defense
+    Building building;
+
+    public Building Building
     {
         get
         {
-            return defense;
+            return building;
         }
         set
         {
-            defense = value;
-            defense.gameObject.transform.SetParent(transform, false);
+            building = value;
+            if (building != null)
+            {
+                building.transform.SetParent(transform, false);
+                building.transform.localPosition = Vector3.zero;
+            }
         }
     }
-
-    private Defence defense;
 
     protected Observable<FluidCovered> fluidCoveredObservable;
     public Observable<FluidCovered> Observable(IObservable<FluidCovered> self)

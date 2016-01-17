@@ -4,16 +4,17 @@ using System.Collections.Generic;
 
 public class Fire : MonoBehaviour {
 	public float fireFrequency;
-	public int worldSize;
-
 	public GameObject firePrefab;
 
+	int worldSize;
 	bool spawning = false;
 	float timer = 0;
 
 	Dictionary<TileLocation,bool> locations = new Dictionary<TileLocation,bool>();
 
 	void Start () {
+		worldSize = FindObjectOfType<Terrain> ().WorldSize;
+
 		for (int x = 1-worldSize; x < worldSize; x++) {
 			for (int y = 1-worldSize; y < worldSize; y++) {
 				TileLocation location = new TileLocation(x, y);
@@ -51,7 +52,6 @@ public class Fire : MonoBehaviour {
 		}
 
 		locations [location] = true;
-
 		spawning = false;
 	}
 }

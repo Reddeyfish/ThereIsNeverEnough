@@ -80,6 +80,7 @@ public class Terrain : MonoBehaviour, IObservable<FluidTick> {
             GameObject spawnedPeople = GameObject.Instantiate(peoplePrefab);
             TileLocation location = new TileLocation(Random.Range(1-worldSize, worldSize), Random.Range(1-worldSize, worldSize));
             tiles[location].Road = spawnedPeople.GetComponent<RoadNode>();
+            Debug.Log(tiles[location].Road);
         }
 
         fluidDeltas = new Map<float>(worldSize);
