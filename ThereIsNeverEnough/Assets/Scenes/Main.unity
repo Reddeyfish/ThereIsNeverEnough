@@ -92,6 +92,10 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 11464072, guid: c6b493103b46ed040bfe6b9caa7ae9af, type: 2}
+      propertyPath: roadPrefabs.Array.size
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 460180, guid: c6b493103b46ed040bfe6b9caa7ae9af, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -133,6 +137,18 @@ Prefab:
       value: 
       objectReference: {fileID: 21300000, guid: 79de59e413aad405191cb69f016edd37,
         type: 3}
+    - target: {fileID: 11464072, guid: c6b493103b46ed040bfe6b9caa7ae9af, type: 2}
+      propertyPath: roadPrefabs.Array.data[0]
+      value: 
+      objectReference: {fileID: 100226, guid: 51ee4feca5ad03441b5fbbc211d12aee, type: 2}
+    - target: {fileID: 11464072, guid: c6b493103b46ed040bfe6b9caa7ae9af, type: 2}
+      propertyPath: roadPrefabs.Array.data[1]
+      value: 
+      objectReference: {fileID: 100226, guid: 53077a253c45d6d489580a81149cd1af, type: 2}
+    - target: {fileID: 11464072, guid: c6b493103b46ed040bfe6b9caa7ae9af, type: 2}
+      propertyPath: roadPrefabs.Array.data[2]
+      value: 
+      objectReference: {fileID: 100226, guid: c4b2fa2507dbaea4e858f6dddf092cae, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c6b493103b46ed040bfe6b9caa7ae9af, type: 2}
   m_IsPrefabParent: 0
