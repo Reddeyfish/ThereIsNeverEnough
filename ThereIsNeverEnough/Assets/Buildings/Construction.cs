@@ -19,6 +19,8 @@ public class Construction : Building
             constructionTime = completedBuildingPrefab.GetComponent<Building>().buildTime;
         }
     }
+
+	public GameObject ConstructionCompleteVFX;
     
     float constructionTime;
 
@@ -58,7 +60,7 @@ public class Construction : Building
                 location.Tile.Building = finishedBuilding;
             }
 
-            
+			Instantiate(ConstructionCompleteVFX, transform.position, Quaternion.identity);
         }
     }
 

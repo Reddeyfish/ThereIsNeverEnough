@@ -10,6 +10,7 @@ GameObject:
   - 4: {fileID: 400026}
   - 198: {fileID: 19898394}
   - 199: {fileID: 19974760}
+  - 114: {fileID: 11444040}
   m_Layer: 0
   m_Name: Smoke
   m_TagString: Untagged
@@ -29,6 +30,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!114 &11444040
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 197996}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93062d119d5f03d4ba5a400387c8347a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TimeAfterToDestroy: 1
+  DestroyStoppedParticle: 1
 --- !u!198 &19898394
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -118,7 +132,7 @@ ParticleSystem:
         m_RotationOrder: 4
       minMaxState: 0
     startSpeed:
-      scalar: 1.81
+      scalar: 0.39
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -244,7 +258,7 @@ ParticleSystem:
         rgba: 4294967295
       maxColor:
         serializedVersion: 2
-        rgba: 4294967295
+        rgba: 2063597567
       minMaxState: 0
     startSize:
       scalar: 1
@@ -394,7 +408,7 @@ ParticleSystem:
     serializedVersion: 2
     enabled: 1
     type: 10
-    radius: 0.48
+    radius: 0.84
     angle: 25
     length: 5
     boxX: 1
@@ -415,7 +429,7 @@ ParticleSystem:
     serializedVersion: 2
     m_Type: 0
     rate:
-      scalar: 10
+      scalar: 13
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -449,19 +463,19 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
       minMaxState: 0
-    cnt0: 30
-    cnt1: 30
+    cnt0: 2
+    cnt1: 2
     cnt2: 30
     cnt3: 30
-    cntmax0: 30
-    cntmax1: 30
+    cntmax0: 5
+    cntmax1: 4
     cntmax2: 30
     cntmax3: 30
     time0: 0
-    time1: 0
+    time1: 0.25
     time2: 0
     time3: 0
-    m_BurstCount: 0
+    m_BurstCount: 2
   SizeModule:
     enabled: 1
     curve:
@@ -470,12 +484,12 @@ ParticleSystem:
         serializedVersion: 2
         m_Curve:
         - time: 0
-          value: 1
+          value: 0.7196653
           inSlope: 0
           outSlope: 0
           tangentMode: 0
-        - time: 0.41970795
-          value: 0.8936709
+        - time: 0.43239832
+          value: 0.7765161
           inSlope: -0.62393326
           outSlope: -0.62393326
           tangentMode: 0
@@ -1585,7 +1599,11 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: TimeAfterToDestroy
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 197996}

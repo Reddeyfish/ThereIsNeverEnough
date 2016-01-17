@@ -287,7 +287,10 @@ public class RoadNode : Building, IObserver<Message>, IObserver<FluidCovered>
         Observers.Unsubscribe(this, RecreatePathsMessage.type);
         //recreate pathings
         Observers.Post(new RecreatePathsMessage());
-        Destroy(gameObject);
+		if (gameObject != null)
+		{
+			Destroy(gameObject);
+		}
     }
 }
 

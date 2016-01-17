@@ -101,6 +101,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14f4b162c6dc0ba40be1a075160afc1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ConstructionCompleteVFX: {fileID: 197996, guid: afb269e63340d4d49b5c69ed2757bab6,
+    type: 2}
 --- !u!212 &21201120
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -206,6 +208,10 @@ Prefab:
       propertyPath: m_SortingLayerID
       value: 1605756143
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: ConstructionCompleteVFX
+      value: 
+      objectReference: {fileID: 197996, guid: afb269e63340d4d49b5c69ed2757bab6, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 132186}
