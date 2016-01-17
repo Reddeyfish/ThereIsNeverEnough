@@ -21,6 +21,7 @@ public class Construction : Building
     }
 
 	public GameObject ConstructionCompleteVFX;
+	public AudioClip ConstructionStartSFX;
     
     float constructionTime;
 
@@ -36,11 +37,25 @@ public class Construction : Building
         }
     }
 
+	private static float TimeSinceLast = 0;
+
 	// Use this for initialization
     void Awake()
     {
         image = GetComponentInChildren<Image>();
     }
+
+	// start the audio
+	protected override void Start()
+	{
+		base.Start();
+		AudioSource source = Camera.main.GetComponent<AudioSource>();
+		if (source != null && Time.time - TimeSinceLast > ConstructionStartSFX.length)
+		{
+			source.PlayOneShot(ConstructionStartSFX);
+			TimeSinceLast = Time.time;
+		}
+	}
 
     public void Build()
     {

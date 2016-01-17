@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using System.Collections;
 
 [RequireComponent(typeof(Image))]
@@ -56,10 +57,22 @@ public class HealthBar : MonoBehaviour {
 	}
 
 	public void DecreaseHealth(int rate) {
+		if (currentHealth == maxHealth)
+		{
+			AudioSource source = GetComponent<AudioSource>();
+			if (source != null && !source.isPlaying)
+			{
+				source.Play();
+			}
+		}
+
+
 		CurrentHealth -= Time.deltaTime*rate;
 		if (CurrentHealth < 0)
 		{
 			Debug.Log("Player Death");
+			PlayerPrefs.SetInt ("Dead", 1);
+			SceneManager.LoadScene("Score");
 		}
 	}
 
