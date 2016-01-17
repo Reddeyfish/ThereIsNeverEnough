@@ -57,6 +57,16 @@ public class HealthBar : MonoBehaviour {
 	}
 
 	public void DecreaseHealth(int rate) {
+		if (currentHealth == maxHealth)
+		{
+			AudioSource source = GetComponent<AudioSource>();
+			if (source != null && !source.isPlaying)
+			{
+				source.Play();
+			}
+		}
+
+
 		CurrentHealth -= Time.deltaTime*rate;
 		if (CurrentHealth < 0)
 		{
