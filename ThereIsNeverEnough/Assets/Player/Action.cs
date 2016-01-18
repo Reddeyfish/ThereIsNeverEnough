@@ -112,15 +112,19 @@ public class Action : MonoBehaviour, IObservable<PlayerMovedMessage> {
 				|| AttemptToMine(location().Adjacent(Directions.Up))
 				|| AttemptToMine(location().Adjacent(Directions.Down)))
 			{
+				Camera.main.GetComponent<AudioSource>().PlayOneShot(MiningSFX[Random.Range(0, MiningSFX.Length)], 0.2f);
 			}
 			else
 			{
 				CurrentDirt += DirtMineRate;
 				CreateCombatText("+" + DirtMineRate.ToString(), new Color(97f, 65, 25));
+
+				var audio = GetComponent<AudioSource>();
+				audio.pitch = Mathf.Clamp(audio.pitch += Random.Range(-0.05f, 0.06f), 1f, 3f);
+				audio.PlayOneShot(audio.clip);
 			}
 			UpdateUISliders();
 
-			Camera.main.GetComponent<AudioSource>().PlayOneShot(MiningSFX[Random.Range(0, MiningSFX.Length)], 0.2f);
 		}
 
 		// if space down set rotation z to 40 else zero
