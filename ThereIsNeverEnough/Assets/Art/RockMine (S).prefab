@@ -40,6 +40,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f877ef2e2a55c94a8456e0031fdf772, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  RocksAvailable: 25
+  RocksMinedPerClick: 3
 --- !u!212 &21252210
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -76,7 +78,15 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: RocksMinedPerClick
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: RocksAvailable
+      value: 25
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 143088}

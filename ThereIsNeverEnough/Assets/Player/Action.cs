@@ -94,10 +94,12 @@ public class Action : MonoBehaviour, IObservable<PlayerMovedMessage> {
 		if (Input.GetButtonDown("Submit"))
 		{
 			// start mining
-			if (location().Tile.Resource != null)
+			if (AttemptToMine(location())
+				|| AttemptToMine(location().Adjacent(Directions.Left))
+				|| AttemptToMine(location().Adjacent(Directions.Right))
+				|| AttemptToMine(location().Adjacent(Directions.Up))
+				|| AttemptToMine(location().Adjacent(Directions.Down)))
 			{
-				CurrentStone += location().Tile.Resource.Mine();
-				CurrentDirt += DirtMineRateInStoneMine;
 			}
 			else
 			{
@@ -118,6 +120,22 @@ public class Action : MonoBehaviour, IObservable<PlayerMovedMessage> {
         TryBuildLocation(currentLocation.left());
         TryBuildLocation(currentLocation.right());
     }
+
+	/// <summary>
+	/// Returns true if we successfully mined the loc
+	/// </summary>
+	/// <param name="loc"></param>
+	/// <returns></returns>
+	private bool AttemptToMine(TileLocation loc)
+	{
+		if (loc.Tile.Resource != null)
+		{
+			CurrentStone += loc.Tile.Resource.Mine();
+			CurrentDirt += DirtMineRateInStoneMine;
+			return true;
+		}
+		return false;
+	}
 
     void TryBuildLocation(TileLocation location)
     {
