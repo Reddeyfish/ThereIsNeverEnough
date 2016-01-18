@@ -672,7 +672,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca373e5d56d22447a84b82bfe9d7ef5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fireFrequency: 4
+  timeUntilNextFire: 1
   firePrefab: {fileID: 183586, guid: 1b0f36efc681541d9932a499ca5dbf64, type: 2}
 --- !u!4 &865940783
 Transform:

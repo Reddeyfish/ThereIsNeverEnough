@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 
 public class Fire : MonoBehaviour {
-	public float fireFrequency;
+	public float timeUntilNextFire;
 	public GameObject firePrefab;
 	public Dictionary<TileLocation,bool> locations = new Dictionary<TileLocation,bool>();
 
@@ -35,7 +35,7 @@ public class Fire : MonoBehaviour {
 			timer += Time.deltaTime;
 		}
 
-		if(timer >= fireFrequency){
+		if(timer >= timeUntilNextFire){
 			Spawn(GenerateLocation());
 		}
 
