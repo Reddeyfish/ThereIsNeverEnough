@@ -11,12 +11,12 @@ public class updateText : MonoBehaviour
 	void Start () 
 	{
 		updateBox = GetComponent <Text> ();
-		updateBox.text = "Time: " + (int) Time.time + " sec";
+		updateBox.text = "Time: " + (int) Time.timeSinceLevelLoad + " sec";
 	}
 	
 	// Update is called once per frame
 	void Update () 
 	{
-		updateBox.text = "Time: " + (int) Time.time + " sec";
+		updateBox.text = "Time: " + (int) Time.timeSinceLevelLoad + " sec";
 	}
 }
