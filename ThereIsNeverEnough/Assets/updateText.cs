@@ -18,14 +18,14 @@ public class updateText : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
-		time = (int)Time.time;
+		time = (int)Time.timeSinceLevelLoad;
 		if (time < 60) 
 		{
 			updateBox.text = "Time: " + time + " sec";
 		} 
 		else 
 		{
-			minute = (int)Time.time / 60;
+			minute = (int)Time.timeSinceLevelLoad / 60;
 			time = time - (minute * 60);
 			updateBox.text = "Time: " + minute + " min ";
 			if (time != 0) 
