@@ -8,22 +8,18 @@ public class scoreText : MonoBehaviour {
 	int currentScore;
     MainBase mainBase;
 
-	void Awake() {
-		PlayerPrefs.SetInt ("Score", 0);
-	}
-
 	void Start () {
 		scoreBox = GetComponent <Text> ();
 		currentScore = 0;
 		scoreBox.text = "People Evacuated: " + currentScore;
         mainBase = FindObjectOfType<MainBase>();
+		PlayerPrefs.SetInt ("Score", 0);
 	}
 
 	void Update () {
         currentScore = mainBase.Score;
-		scoreBox.text = "People Evacuated: " + currentScore;
-
 		if (currentScore != PlayerPrefs.GetInt("Score")) {
+			scoreBox.text = "People Evacuated: " + currentScore;
 			PlayerPrefs.SetInt ("Score", currentScore);
 		}
 	}
