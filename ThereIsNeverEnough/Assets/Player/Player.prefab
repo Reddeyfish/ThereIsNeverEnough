@@ -514,6 +514,12 @@ MonoBehaviour:
   ShieldRockCost: 1
   DirtMineRate: 4
   DirtMineRateInStoneMine: 2
+  MiningSFX:
+  - {fileID: 8300000, guid: c07c607b753eaac48a2ca9f1fa895017, type: 3}
+  - {fileID: 8300000, guid: 9cfb870948e40a541af7bbc499028c79, type: 3}
+  - {fileID: 8300000, guid: df380ef754528ef4eb7f7782fd8957d8, type: 3}
+  - {fileID: 8300000, guid: d453e3656a12fa5488dc7096a45b468c, type: 3}
+  - {fileID: 8300000, guid: d19ff83c947c7fb49b3b85febf0b5cd1, type: 3}
   StoneSlider: {fileID: 0}
   DirtSlider: {fileID: 0}
   contructionPrefab: {fileID: 132186, guid: 28ca6ed24a0945545972a4dfa32963ad, type: 2}

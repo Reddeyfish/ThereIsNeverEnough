@@ -17,6 +17,8 @@ public class Action : MonoBehaviour, IObservable<PlayerMovedMessage> {
 	public float DirtMineRate = 12;
 	public float DirtMineRateInStoneMine = 5;
 
+	public AudioClip[] MiningSFX;
+
 	public Slider StoneSlider;
 	public Slider DirtSlider;
 
@@ -114,6 +116,8 @@ public class Action : MonoBehaviour, IObservable<PlayerMovedMessage> {
 				CurrentDirt += DirtMineRate;
 			}
 			UpdateUISliders();
+
+			Camera.main.GetComponent<AudioSource>().PlayOneShot(MiningSFX[Random.Range(0, MiningSFX.Length)], 0.2f);
 		}
 
 		// if space down set rotation z to 40 else zero
