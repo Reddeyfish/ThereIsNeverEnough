@@ -17,6 +17,8 @@ public class Action : MonoBehaviour, IObservable<PlayerMovedMessage> {
 	public float DirtMineRate = 12;
 	public float DirtMineRateInStoneMine = 5;
 
+	public GameObject CombatText;
+
 	public AudioClip[] MiningSFX;
 
 	public Slider StoneSlider;
@@ -114,6 +116,7 @@ public class Action : MonoBehaviour, IObservable<PlayerMovedMessage> {
 			else
 			{
 				CurrentDirt += DirtMineRate;
+				CreateCombatText("+" + DirtMineRate.ToString(), new Color(97f, 65, 25));
 			}
 			UpdateUISliders();
 
@@ -151,14 +154,24 @@ public class Action : MonoBehaviour, IObservable<PlayerMovedMessage> {
 	{
 		if (loc.Tile.Resource != null)
 		{
-			CurrentStone += loc.Tile.Resource.Mine();
+			var stoneAcquired = loc.Tile.Resource.Mine();
+			CurrentStone += stoneAcquired;
 			CurrentDirt += DirtMineRateInStoneMine;
 
 			CurrentStone = Mathf.Min(CurrentStone, MaxStone);
 			CurrentDirt = Mathf.Min(CurrentDirt, MaxDirt);
+
+			CreateCombatText("+" + stoneAcquired.ToString(), Color.gray);
 			return true;
 		}
 		return false;
+	}
+
+	private void CreateCombatText(string text, Color startColor)
+	{
+		var thing = Instantiate(CombatText, transform.position, Quaternion.identity) as GameObject;
+		thing.GetComponent<TextMesh>().text = text;
+		thing.GetComponent<TextMesh>().color = startColor;
 	}
 
     void TryBuildLocation(TileLocation location)

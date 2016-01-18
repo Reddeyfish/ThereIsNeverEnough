@@ -506,14 +506,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   building: 0
-  MaxStone: 100
-  MaxDirt: 200
+  MaxStone: 125
+  MaxDirt: 250
   CurrentStone: 20
   CurrentDirt: 100
   ShieldDirtCost: 4
   ShieldRockCost: 1
   DirtMineRate: 4
   DirtMineRateInStoneMine: 2
+  CombatText: {fileID: 149868, guid: a35d8eb22962bb54db920deac6125486, type: 2}
   MiningSFX:
   - {fileID: 8300000, guid: c07c607b753eaac48a2ca9f1fa895017, type: 3}
   - {fileID: 8300000, guid: 9cfb870948e40a541af7bbc499028c79, type: 3}
