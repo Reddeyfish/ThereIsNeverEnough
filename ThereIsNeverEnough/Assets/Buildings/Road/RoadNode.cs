@@ -8,6 +8,8 @@ using System;
 /// </summary>
 public class RoadNode : Building, IObserver<Message>, IObserver<FluidCovered>
 {
+	public float SpeedMultiplier = 1f;
+
 	[Tooltip("Road sprite.")]
 	public SpriteRenderer RoadSprite;
 	[Tooltip("Name of the road tileset used")]

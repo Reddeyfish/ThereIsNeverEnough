@@ -33,13 +33,13 @@ public class Person : MonoBehaviour {
 	void Update () {
 		if (target != null)
 		{
-			if ((target.transform.position - this.transform.position).magnitude < speed * Time.deltaTime)
+			if ((target.transform.position - this.transform.position).magnitude < speed * Time.deltaTime * Target.SpeedMultiplier)
 			{
 				target.Receive(this);
 			}
 			else
 			{
-				this.transform.position = Vector2.MoveTowards(this.transform.position, target.transform.position, speed * Time.deltaTime);
+				this.transform.position = Vector2.MoveTowards(this.transform.position, target.transform.position, speed * Time.deltaTime * Target.SpeedMultiplier);
 			}
 		}
     }
