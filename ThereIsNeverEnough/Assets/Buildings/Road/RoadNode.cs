@@ -12,6 +12,9 @@ public class RoadNode : Building, IObserver<Message>, IObserver<FluidCovered>
 	public SpriteRenderer RoadSprite;
 	[Tooltip("Name of the road tileset used")]
 	public string RoadStyle;
+
+	public AudioClip OnDestroyedAudio;
+	public float OnDestroyVolume = 0.4f;
     
 	private bool originNode = false;
 
@@ -61,6 +64,10 @@ public class RoadNode : Building, IObserver<Message>, IObserver<FluidCovered>
 
 	private void OnDestroy()
 	{
+		if (OnDestroyedAudio != null)
+		{
+			Camera.main.GetComponent<AudioSource>().PlayOneShot(OnDestroyedAudio, OnDestroyVolume);
+		}
 		UpdateNeighboringRoadSprites();
 	}
 

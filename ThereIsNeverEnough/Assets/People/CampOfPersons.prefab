@@ -86,6 +86,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RoadSprite: {fileID: 0}
   RoadStyle: 
+  OnDestroyedAudio: {fileID: 8300000, guid: d2c72ba2967eb7841bcaf0d868a8ce90, type: 3}
   personPrefab: {fileID: 135820, guid: 00b37ab1bb0869642b6bc1e51a2dfca8, type: 2}
   activeColor: {r: 0, g: 0.7568628, b: 0.003921569, a: 1}
 --- !u!212 &21216866
@@ -196,6 +197,10 @@ Prefab:
       value: 
       objectReference: {fileID: 21300000, guid: fb2a1f1dc4fc08f4d970fed0f6dce0fc,
         type: 3}
+    - target: {fileID: 0}
+      propertyPath: OnDestroyedAudio
+      value: 
+      objectReference: {fileID: 8300000, guid: d2c72ba2967eb7841bcaf0d868a8ce90, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 122546}

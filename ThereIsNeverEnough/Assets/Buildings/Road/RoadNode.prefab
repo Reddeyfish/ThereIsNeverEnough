@@ -99,6 +99,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RoadSprite: {fileID: 21259042}
   RoadStyle: highwayTileset
+  OnDestroyedAudio: {fileID: 8300000, guid: d2c72ba2967eb7841bcaf0d868a8ce90, type: 3}
+  OnDestroyVolume: 0.15
 --- !u!212 &21259042
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -163,6 +165,14 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: EaseType
       value: 22
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: OnDestroyedAudio
+      value: 
+      objectReference: {fileID: 8300000, guid: d2c72ba2967eb7841bcaf0d868a8ce90, type: 3}
+    - target: {fileID: 0}
+      propertyPath: OnDestroyVolume
+      value: 0.15
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
