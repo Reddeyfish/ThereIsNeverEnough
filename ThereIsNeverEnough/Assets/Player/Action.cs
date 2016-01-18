@@ -85,7 +85,24 @@ public class Action : MonoBehaviour, IObservable<PlayerMovedMessage> {
 		AbstractTile tile = mouseToTileLocation().Tile;
 		Terrain.self.HighlightTile(mouseToTileLocation(), tile != null && tile.CanBuildRoad(roadPrefabs[selectedRoadPrefab].GetComponent<RoadNode>()));
 
-        Building building = currentLocation.Tile.Building;
+        BuildLocation(currentLocation.Tile);
+        TryBuildLocation(currentLocation.up());
+        TryBuildLocation(currentLocation.down());
+        TryBuildLocation(currentLocation.left());
+        TryBuildLocation(currentLocation.right());
+    }
+
+    void TryBuildLocation(TileLocation location)
+    {
+        if (Terrain.self.validTileLocation(location))
+        {
+            BuildLocation(location.Tile);
+        }
+    }
+
+    void BuildLocation(AbstractTile tile)
+    {
+        Building building = tile.Building;
         if (building != null && building is Construction)
             (building as Construction).Build();
     }
