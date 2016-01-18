@@ -9,7 +9,7 @@ public class FinalScoreDisplay : MonoBehaviour {
 	void Start() {
 		scoreBox = GetComponent <Text> ();
 		if (PlayerPrefs.GetInt ("Score") == 0) {
-			scoreBox.text = "The disaster stuck too quickly. All residents of The City of Townsville perished.";
+			scoreBox.text = "Disaster struck too quickly. All the residents of The City of Townsville perished.";
 		} else if (PlayerPrefs.GetInt ("Score") == 1) {
 			scoreBox.text = "You successfully evacuated 1 person. The City of Townsville will rise again.";
 		} else {
