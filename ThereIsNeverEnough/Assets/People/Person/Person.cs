@@ -3,6 +3,9 @@ using System.Collections;
 
 public class Person : MonoBehaviour {
 
+	[Tooltip("Celebration VFX")]
+	public GameObject ConfettiVFX;
+
     [SerializeField]
     protected float speed;
 
@@ -20,15 +23,9 @@ public class Person : MonoBehaviour {
         }
     }
 
-    //Road currentRoad
-
-	// Use this for initialization
-	void Start () {
-	
-	}
-
     public void Rescue()
     {
+		Instantiate(ConfettiVFX, transform.position, Quaternion.identity);
         SimplePool.Despawn(this.gameObject);
     }
 	

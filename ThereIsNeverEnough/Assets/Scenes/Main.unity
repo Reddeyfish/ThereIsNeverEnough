@@ -177,10 +177,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 5
       objectReference: {fileID: 0}
-    - target: {fileID: 11428672, guid: 762ca48d3ecd980449734f7beadf8a3f, type: 2}
-      propertyPath: highlightTile
-      value: 
-      objectReference: {fileID: 129106, guid: 6786bce372c1d2d47aecf32ae45b385e, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 762ca48d3ecd980449734f7beadf8a3f, type: 2}
   m_IsPrefabParent: 0

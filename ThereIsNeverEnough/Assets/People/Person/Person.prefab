@@ -57,6 +57,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee6bbaf7a7626e044af4efee8afce60e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ConfettiVFX: {fileID: 192582, guid: 5bdaa01e137bb524da5151f380c4e7a0, type: 2}
   speed: 1
 --- !u!198 &19877326
 ParticleSystem:
@@ -1753,6 +1754,10 @@ Prefab:
       propertyPath: ColorModule.gradient.maxGradient.m_NumAlphaKeys
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: ConfettiVFX
+      value: 
+      objectReference: {fileID: 192582, guid: 5bdaa01e137bb524da5151f380c4e7a0, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 135820}
