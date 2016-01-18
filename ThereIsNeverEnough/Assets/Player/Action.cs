@@ -116,6 +116,14 @@ public class Action : MonoBehaviour, IObservable<PlayerMovedMessage> {
 			UpdateUISliders();
 		}
 
+		// if space down set rotation z to 40 else zero
+		if (Input.GetButton("Submit"))
+		{
+			transform.rotation = Quaternion.Euler(new Vector3(0, 0, 40));
+		}
+		else
+			transform.rotation = Quaternion.identity;
+
 		m_scrollTimer += Time.deltaTime;
 
 
