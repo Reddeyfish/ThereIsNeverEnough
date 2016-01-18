@@ -10,7 +10,6 @@ public class scoreText : MonoBehaviour {
 
 	void Awake() {
 		PlayerPrefs.SetInt ("Score", 0);
-		PlayerPrefs.SetInt ("Dead", 0);
 	}
 
 	void Start () {
