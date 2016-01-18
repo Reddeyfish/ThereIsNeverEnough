@@ -132,7 +132,7 @@ public class Action : MonoBehaviour, IObservable<PlayerMovedMessage> {
 		// if space down set rotation z to 40 else zero
 		if (Input.GetButton("Submit"))
 		{
-			transform.rotation = Quaternion.Euler(new Vector3(0, 0, 40));
+			transform.rotation = Quaternion.Euler(new Vector3(0, 0, 40 + Random.Range(-5, 5)));
 		}
 		else
 			transform.rotation = Quaternion.identity;
