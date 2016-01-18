@@ -9,6 +9,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 475466}
   - 114: {fileID: 11464784}
+  - 114: {fileID: 11450886}
   m_Layer: 0
   m_Name: RoadNodeDirt
   m_TagString: Untagged
@@ -41,7 +42,7 @@ Transform:
   m_GameObject: {fileID: 100226}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 493016}
   m_Father: {fileID: 0}
@@ -69,6 +70,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddd9d10ffbbe644468f6a0d892ac896e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &11450886
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100226}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17a52ff580310074bbacd27398600223, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FinalScale: {x: 1, y: 1, z: 1}
+  Speed: 4.4
+  EaseType: 22
+  LoopType: 0
+  OnStart: 1
 --- !u!114 &11464784
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -136,6 +153,26 @@ Prefab:
       value: 
       objectReference: {fileID: 21300000, guid: 508693863c7195340a95ff17584eaecf,
         type: 3}
+    - target: {fileID: 0}
+      propertyPath: m_LocalScale.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_LocalScale.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_LocalScale.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Speed
+      value: 4.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: EaseType
+      value: 22
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 100226}
