@@ -1517,24 +1517,18 @@ Prefab:
       propertyPath: spreadCustomCurve.m_RotationOrder
       value: 0
       objectReference: {fileID: 0}
-<<<<<<< Updated upstream
-=======
-<<<<<<< Updated upstream
     - target: {fileID: 11472526, guid: d860aca025925bd4a84cf19101e94a66, type: 2}
       propertyPath: menuClip
       value: 
-      objectReference: {fileID: 8300000, guid: 3b0fdd9cbd91edd46b046689742f6698, type: 3}
+      objectReference: {fileID: 8300000, guid: 2a1b6493ca4144107a75954109382cfa, type: 3}
     - target: {fileID: 11472526, guid: d860aca025925bd4a84cf19101e94a66, type: 2}
       propertyPath: gameClip
       value: 
-      objectReference: {fileID: 8300000, guid: 2dd912c96d615204daa7ad37cd907b7b, type: 3}
-=======
+      objectReference: {fileID: 8300000, guid: a6e5d6b27be314d8b83190df1646b7e8, type: 3}
     - target: {fileID: 8236948, guid: d860aca025925bd4a84cf19101e94a66, type: 2}
       propertyPath: m_audioClip
       value: 
       objectReference: {fileID: 8300000, guid: 2a1b6493ca4144107a75954109382cfa, type: 3}
->>>>>>> Stashed changes
->>>>>>> Stashed changes
     - target: {fileID: 8236948, guid: d860aca025925bd4a84cf19101e94a66, type: 2}
       propertyPath: Loop
       value: 1
