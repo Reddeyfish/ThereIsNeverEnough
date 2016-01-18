@@ -80,6 +80,11 @@ public class Action : MonoBehaviour, IObservable<PlayerMovedMessage> {
 		}
 		m_scrollTimer += Time.deltaTime;
 
+
+		// terrain highlight mouse point if can build
+		AbstractTile tile = mouseToTileLocation().Tile;
+		Terrain.self.HighlightTile(mouseToTileLocation(), tile != null && tile.CanBuildRoad(roadPrefabs[selectedRoadPrefab].GetComponent<RoadNode>()));
+
         Building building = currentLocation.Tile.Building;
         if (building != null && building is Construction)
             (building as Construction).Build();

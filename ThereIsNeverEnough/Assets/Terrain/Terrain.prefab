@@ -131,6 +131,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69baca591afab0c4294c4fc65bbb27cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  highlightTile: {fileID: 129106, guid: 6786bce372c1d2d47aecf32ae45b385e, type: 2}
   genericTile: {fileID: 129106, guid: 757ccffe6046a484db6b8dc57b8b266e, type: 2}
   mainBasePrefab: {fileID: 181218, guid: b58d71e410a231c4ca1c2479f630afd7, type: 2}
   peoplePrefab: {fileID: 122546, guid: 0e46539d580c714439ec46e5128ccbb2, type: 2}

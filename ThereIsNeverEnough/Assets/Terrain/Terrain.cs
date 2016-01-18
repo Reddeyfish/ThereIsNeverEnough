@@ -6,6 +6,10 @@ public class Terrain : MonoBehaviour, IObservable<FluidTick> {
     public static Terrain self;
 
     [SerializeField]
+	[Tooltip("Tile that shows up if you hover over a place that can have roads built.")]
+	protected GameObject highlightTile;
+
+    [SerializeField]
     protected GameObject genericTile;
 
     [SerializeField]
@@ -28,6 +32,8 @@ public class Terrain : MonoBehaviour, IObservable<FluidTick> {
     protected float tickSpeed;
 
     public Map<AbstractTile> tiles;
+
+	private GameObject m_highlightTileInstance;
 
     const float noiseMultiplier = 5 * Mathf.PI;
     Vector2 seed;
@@ -187,6 +193,25 @@ public class Terrain : MonoBehaviour, IObservable<FluidTick> {
     {
         return tile.X > -worldSize && tile.X < worldSize && tile.Y > -worldSize && tile.Y < worldSize;
     }
+
+	public void HighlightTile(TileLocation tileLoc, bool isVisible)
+	{
+		if (isVisible)
+		{
+			if (m_highlightTileInstance == null)
+			{
+				m_highlightTileInstance = SimplePool.Spawn(highlightTile, tileLoc);
+				m_highlightTileInstance.transform.SetParent(transform);
+			}
+
+			m_highlightTileInstance.transform.position = tileLoc;
+		}
+
+		if (m_highlightTileInstance != null)
+		{
+			m_highlightTileInstance.SetActive(isVisible);
+		}
+	}
 }
 
 [System.Serializable]
