@@ -208,7 +208,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -282,7 +282,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -356,7 +356,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -430,7 +430,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -506,14 +506,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   building: 0
-  MaxRock: 100
+  MaxStone: 100
   MaxDirt: 200
   CurrentStone: 20
   CurrentDirt: 100
   ShieldDirtCost: 4
   ShieldRockCost: 1
-  DirtMineRate: 2
-  DirtMineRateInStoneMine: 1
+  DirtMineRate: 4
+  DirtMineRateInStoneMine: 2
+  StoneSlider: {fileID: 0}
+  DirtSlider: {fileID: 0}
   contructionPrefab: {fileID: 132186, guid: 28ca6ed24a0945545972a4dfa32963ad, type: 2}
   roadPrefabs:
   - {fileID: 100226, guid: 53077a253c45d6d489580a81149cd1af, type: 2}

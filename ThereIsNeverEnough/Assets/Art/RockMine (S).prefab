@@ -41,7 +41,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RocksAvailable: 25
-  RocksMinedPerClick: 3
+  RocksMinedPerClick: 4
 --- !u!212 &21252210
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -81,7 +81,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 0}
       propertyPath: RocksMinedPerClick
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: RocksAvailable

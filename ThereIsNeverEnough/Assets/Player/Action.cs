@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class Action : MonoBehaviour, IObservable<PlayerMovedMessage> {
@@ -7,17 +8,17 @@ public class Action : MonoBehaviour, IObservable<PlayerMovedMessage> {
     public Vector2 direction { get; set; }
     public bool building;
 
-	public float MaxRock = 100;
+	public float MaxStone = 100;
 	public float MaxDirt = 200;
-
 	public float CurrentStone = 20;
 	public float CurrentDirt = 100;
-
 	public float ShieldDirtCost = 10;
 	public float ShieldRockCost = 5;
-
 	public float DirtMineRate = 12;
 	public float DirtMineRateInStoneMine = 5;
+
+	public Slider StoneSlider;
+	public Slider DirtSlider;
 
 	public int SelectedRoadTiles
 	{
@@ -54,11 +55,18 @@ public class Action : MonoBehaviour, IObservable<PlayerMovedMessage> {
     }
 
     void Start()
-    {
-        currentLocation = location();
-    }
+	{
+		currentLocation = location();
+		UpdateUISliders();
+	}
 
-    void Update()
+	private void UpdateUISliders()
+	{
+		StoneSlider.value = (CurrentStone / MaxStone);
+		DirtSlider.value = (CurrentDirt / MaxDirt);
+	}
+
+	void Update()
     {
 		// if the player is clicking
 		if (Input.GetMouseButton(0))
@@ -105,6 +113,7 @@ public class Action : MonoBehaviour, IObservable<PlayerMovedMessage> {
 			{
 				CurrentDirt += DirtMineRate;
 			}
+			UpdateUISliders();
 		}
 
 		m_scrollTimer += Time.deltaTime;
@@ -132,6 +141,9 @@ public class Action : MonoBehaviour, IObservable<PlayerMovedMessage> {
 		{
 			CurrentStone += loc.Tile.Resource.Mine();
 			CurrentDirt += DirtMineRateInStoneMine;
+
+			CurrentStone = Mathf.Min(CurrentStone, MaxStone);
+			CurrentDirt = Mathf.Min(CurrentDirt, MaxDirt);
 			return true;
 		}
 		return false;
@@ -148,7 +160,7 @@ public class Action : MonoBehaviour, IObservable<PlayerMovedMessage> {
     void BuildLocation(AbstractTile tile)
     {
         Building building = tile.Building;
-        if (building != null && building is Construction)
+        if (building != null && building is Construction && !Input.GetButton("Submit"))
             (building as Construction).Build();
     }
 
@@ -177,7 +189,6 @@ public class Action : MonoBehaviour, IObservable<PlayerMovedMessage> {
         if (tile.FluidLevel != 0)
             return;
 
-		Debug.Log("Stone cost : " + stoneCost);
 		if (CurrentStone < stoneCost || CurrentDirt < dirtCost)
 		{
 			// error not enough resources
@@ -188,6 +199,8 @@ public class Action : MonoBehaviour, IObservable<PlayerMovedMessage> {
 			CurrentStone -= stoneCost;
 			CurrentDirt -= dirtCost;
 		}
+
+		UpdateUISliders();
 
         Building building = tile.Building;
         if (building is Construction)
