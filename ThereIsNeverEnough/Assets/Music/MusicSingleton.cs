@@ -26,16 +26,16 @@ public class MusicSingleton : MonoBehaviour {
 
     void OnLevelWasLoaded(int level)
     {
-        source.clip = level == 0 ? menuClip : gameClip;
+		source.clip = level == 1 ? gameClip : menuClip;
         source.Play();
         /*
-        if (level == 0)
+        if (level == 1)
         {
-            source.clip = menuClip;
+            source.clip = gameClip;
         }
         else
         {
-            source.clip = gameClip;
+            source.clip = menuClip;
         }*/
     }
 }
