@@ -1517,6 +1517,18 @@ Prefab:
       propertyPath: spreadCustomCurve.m_RotationOrder
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 11472526, guid: d860aca025925bd4a84cf19101e94a66, type: 2}
+      propertyPath: menuClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 2a1b6493ca4144107a75954109382cfa, type: 3}
+    - target: {fileID: 11472526, guid: d860aca025925bd4a84cf19101e94a66, type: 2}
+      propertyPath: gameClip
+      value: 
+      objectReference: {fileID: 8300000, guid: a6e5d6b27be314d8b83190df1646b7e8, type: 3}
+    - target: {fileID: 8236948, guid: d860aca025925bd4a84cf19101e94a66, type: 2}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 2a1b6493ca4144107a75954109382cfa, type: 3}
     - target: {fileID: 8236948, guid: d860aca025925bd4a84cf19101e94a66, type: 2}
       propertyPath: Loop
       value: 1
