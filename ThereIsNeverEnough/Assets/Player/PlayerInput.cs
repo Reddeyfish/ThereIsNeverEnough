@@ -17,9 +17,9 @@ public class PlayerInput : MonoBehaviour, IObserver<PlayerMovedMessage> {
 	// Update is called once per frame
 	void Update () {
         if (Input.GetKeyDown(KeyCode.Alpha1))
-            action.ConstructRoad();
+            action.ConstructRoad(action.location().Tile);
         if (Input.GetKeyDown(KeyCode.Alpha2))
-            action.ConstructShield();
+            action.ConstructShield(action.location().Tile);
         if (Input.GetMouseButtonDown(2))
             action.ChangeRoadPrefab();
         Vector2 direction = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
@@ -29,8 +29,8 @@ public class PlayerInput : MonoBehaviour, IObserver<PlayerMovedMessage> {
     public void Notify(PlayerMovedMessage m)
     {
         if (Input.GetKey(KeyCode.Alpha1))
-            action.ConstructRoad();
+            action.ConstructRoad(action.location().Tile);
         if (Input.GetKey(KeyCode.Alpha2))
-            action.ConstructShield();
+            action.ConstructShield(action.location().Tile);
     }
 }

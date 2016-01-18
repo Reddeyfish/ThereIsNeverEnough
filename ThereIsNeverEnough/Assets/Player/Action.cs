@@ -7,6 +7,18 @@ public class Action : MonoBehaviour, IObservable<PlayerMovedMessage> {
     public Vector2 direction { get; set; }
     public bool building;
 
+	public float MaxRock = 100;
+	public float MaxDirt = 200;
+
+	public float CurrentStone = 20;
+	public float CurrentDirt = 100;
+
+	public float ShieldDirtCost = 10;
+	public float ShieldRockCost = 5;
+
+	public float DirtMineRate = 12;
+	public float DirtMineRateInStoneMine = 5;
+
 	public int SelectedRoadTiles
 	{
 		get { return selectedRoadPrefab; }
@@ -52,13 +64,13 @@ public class Action : MonoBehaviour, IObservable<PlayerMovedMessage> {
 		if (Input.GetMouseButton(0))
 		{
 			// start building a road
-            TrySpawnConstruction(roadPrefabs[selectedRoadPrefab], mouseToTileLocation().Tile);
+			ConstructRoad(mouseToTileLocation().Tile);
 		}
 
         if (Input.GetMouseButton(1))
         {
-            // start building a wall
-            TrySpawnConstruction(shieldPrefab, mouseToTileLocation().Tile);
+			// start building a wall
+			ConstructShield(mouseToTileLocation().Tile);
         }
 
 		if (Input.GetAxis("Mouse ScrollWheel") != 0 && m_scrollTimer > changeRoadsDelay)
@@ -78,6 +90,21 @@ public class Action : MonoBehaviour, IObservable<PlayerMovedMessage> {
 					selectedRoadPrefab = roadPrefabs.Length - 1;
 			}
 		}
+
+		if (Input.GetButtonDown("Submit"))
+		{
+			// start mining
+			if (location().Tile.Resource != null)
+			{
+				CurrentStone += location().Tile.Resource.Mine();
+				CurrentDirt += DirtMineRateInStoneMine;
+			}
+			else
+			{
+				CurrentDirt += DirtMineRate;
+			}
+		}
+
 		m_scrollTimer += Time.deltaTime;
 
 
@@ -113,21 +140,36 @@ public class Action : MonoBehaviour, IObservable<PlayerMovedMessage> {
         return new TileLocation(Mathf.RoundToInt(worldPoint.x), Mathf.RoundToInt(worldPoint.y));
     }
 
-    public void ConstructShield()
+    public void ConstructShield(AbstractTile tile)
     {
-        TrySpawnConstruction(shieldPrefab);
+		TrySpawnConstruction(shieldPrefab, tile, ShieldDirtCost, ShieldRockCost);
     }
-    public void ConstructRoad()
+    public void ConstructRoad(AbstractTile tile)
     {
-        TrySpawnConstruction(roadPrefabs[selectedRoadPrefab]);
+		if (tile.CanBuildRoad(roadPrefabs[selectedRoadPrefab].GetComponent<RoadNode>()))
+		{
+			TrySpawnConstruction(roadPrefabs[selectedRoadPrefab], tile, roadPrefabs[selectedRoadPrefab].GetComponent<RoadNode>().DirtCost, roadPrefabs[selectedRoadPrefab].GetComponent<RoadNode>().RockCost);
+		}
     }
     /// <summary>
     /// Attempts to spawn a construction.
     /// </summary>
-    void TrySpawnConstruction(GameObject completedBuildingPrefab, AbstractTile tile)
+    void TrySpawnConstruction(GameObject completedBuildingPrefab, AbstractTile tile, float dirtCost, float stoneCost)
     {
         if (tile.FluidLevel != 0)
             return;
+
+		Debug.Log("Stone cost : " + stoneCost);
+		if (CurrentStone < stoneCost || CurrentDirt < dirtCost)
+		{
+			// error not enough resources
+			return;
+		}
+		else
+		{
+			CurrentStone -= stoneCost;
+			CurrentDirt -= dirtCost;
+		}
 
         Building building = tile.Building;
         if (building is Construction)
@@ -146,9 +188,9 @@ public class Action : MonoBehaviour, IObservable<PlayerMovedMessage> {
         }
     }
 
-    void TrySpawnConstruction(GameObject completedBuildingPrefab)
+    void TrySpawnConstruction(GameObject completedBuildingPrefab, float dirtCost, float rockCost)
     {
-        TrySpawnConstruction(completedBuildingPrefab, currentLocation.Tile);
+        TrySpawnConstruction(completedBuildingPrefab, currentLocation.Tile, dirtCost, rockCost);
     }
 
     /// <summary>

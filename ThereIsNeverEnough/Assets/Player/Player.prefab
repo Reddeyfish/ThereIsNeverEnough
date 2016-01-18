@@ -506,11 +506,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   building: 0
+  MaxRock: 100
+  MaxDirt: 200
+  CurrentStone: 20
+  CurrentDirt: 100
+  ShieldDirtCost: 4
+  ShieldRockCost: 1
+  DirtMineRate: 2
+  DirtMineRateInStoneMine: 1
   contructionPrefab: {fileID: 132186, guid: 28ca6ed24a0945545972a4dfa32963ad, type: 2}
   roadPrefabs:
-  - {fileID: 100226, guid: 51ee4feca5ad03441b5fbbc211d12aee, type: 2}
   - {fileID: 100226, guid: 53077a253c45d6d489580a81149cd1af, type: 2}
   - {fileID: 100226, guid: c4b2fa2507dbaea4e858f6dddf092cae, type: 2}
+  - {fileID: 100226, guid: 51ee4feca5ad03441b5fbbc211d12aee, type: 2}
   shieldPrefab: {fileID: 182016, guid: 0217bc9c4dc30204c94a02403466a852, type: 2}
   speed: 5
   accel: 50

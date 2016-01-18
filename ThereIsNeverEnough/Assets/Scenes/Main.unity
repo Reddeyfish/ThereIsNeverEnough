@@ -124,9 +124,9 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 21238268, guid: c6b493103b46ed040bfe6b9caa7ae9af, type: 2}
-      propertyPath: m_SortingOrder
-      value: 20
+    - target: {fileID: 11464072, guid: c6b493103b46ed040bfe6b9caa7ae9af, type: 2}
+      propertyPath: DirtMineRate
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c6b493103b46ed040bfe6b9caa7ae9af, type: 2}
@@ -502,9 +502,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerAction: {fileID: 63346705}
   PossibleRoadSprites:
-  - {fileID: 21300018, guid: 6a27f838dc1e14e7b8b8c5793ae0e441, type: 3}
   - {fileID: 21300018, guid: 508693863c7195340a95ff17584eaecf, type: 3}
   - {fileID: 21300018, guid: 013bb5ef211666c4dba8d1a95e807be3, type: 3}
+  - {fileID: 21300018, guid: 6a27f838dc1e14e7b8b8c5793ae0e441, type: 3}
   HUDSprite: {fileID: 935040039}
 --- !u!1 &865940781
 GameObject:
@@ -646,7 +646,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300018, guid: 6a27f838dc1e14e7b8b8c5793ae0e441, type: 3}
+  m_Sprite: {fileID: 21300018, guid: 508693863c7195340a95ff17584eaecf, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

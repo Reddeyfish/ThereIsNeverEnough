@@ -15,6 +15,11 @@ public class RoadNode : Building, IObserver<Message>, IObserver<FluidCovered>
 
 	public AudioClip OnDestroyedAudio;
 	public float OnDestroyVolume = 0.4f;
+
+	public float RockCost = 0f;
+	public float DirtCost = 0f;
+
+	public int RoadRanking = 1;
     
 	private bool originNode = false;
 

@@ -6,6 +6,22 @@ public abstract class AbstractTile : MonoBehaviour, IObservable<FluidCovered> {
     public abstract float FluidLevel { get; set; }
     public TileLocation location { get; set; }
 
+	public MinableResource Resource
+	{
+		get { return m_resource; }
+		set
+		{
+			m_resource = value;
+			if (m_resource != null)
+			{
+				m_resource.transform.position = transform.position;
+				m_resource.transform.SetParent(transform);
+			}
+		}
+	}
+
+	private MinableResource m_resource;
+
 	[Tooltip("Can this tile have a road built on it?")]
 	public bool IsRoadBuildable = true;
 
@@ -68,7 +84,13 @@ public abstract class AbstractTile : MonoBehaviour, IObservable<FluidCovered> {
 	{
 		if (FluidLevel != 0)
 			return false;
-		if (HasRoad)
+
+		if (HasRoad && m_road.RoadRanking >= road.RoadRanking)
+		{
+			return false;
+		}
+
+		if (Building != null)
 			return false;
 
 		return true;

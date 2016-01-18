@@ -131,6 +131,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69baca591afab0c4294c4fc65bbb27cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  RockSprites:
+  - {fileID: 196636, guid: 6476d18c6fbee554f8e62a40b93032fe, type: 2}
+  - {fileID: 124226, guid: 6e4308972d38bc448a7d0ba55dc35774, type: 2}
+  - {fileID: 143088, guid: 34fa57de233bbad4abcf71dce1ee1a58, type: 2}
   highlightTile: {fileID: 129106, guid: 6786bce372c1d2d47aecf32ae45b385e, type: 2}
   genericTile: {fileID: 129106, guid: 757ccffe6046a484db6b8dc57b8b266e, type: 2}
   mainBasePrefab: {fileID: 181218, guid: b58d71e410a231c4ca1c2479f630afd7, type: 2}
@@ -152,7 +156,19 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: RockSprites.Array.data[0]
+      value: 
+      objectReference: {fileID: 196636, guid: 6476d18c6fbee554f8e62a40b93032fe, type: 2}
+    - target: {fileID: 0}
+      propertyPath: RockSprites.Array.data[1]
+      value: 
+      objectReference: {fileID: 124226, guid: 6e4308972d38bc448a7d0ba55dc35774, type: 2}
+    - target: {fileID: 0}
+      propertyPath: RockSprites.Array.data[2]
+      value: 
+      objectReference: {fileID: 143088, guid: 34fa57de233bbad4abcf71dce1ee1a58, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 101106}

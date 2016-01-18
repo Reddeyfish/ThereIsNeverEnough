@@ -5,6 +5,8 @@ using System.Collections.Generic;
 public class Terrain : MonoBehaviour, IObservable<FluidTick> {
     public static Terrain self;
 
+	public GameObject[] RockSprites;
+
     [SerializeField]
 	[Tooltip("Tile that shows up if you hover over a place that can have roads built.")]
 	protected GameObject highlightTile;
@@ -47,6 +49,9 @@ public class Terrain : MonoBehaviour, IObservable<FluidTick> {
     Map<float> fluidDeltas;
     public Map<float> defenceHeightBonuses;
 
+	private const int TotalRockMineClusters = 75;
+	private const float ChanceOfCluster = 0.56f;
+
     void Awake()
     {
         defenceHeightBonuses = new Map<float>(worldSize);
@@ -82,12 +87,31 @@ public class Terrain : MonoBehaviour, IObservable<FluidTick> {
         tiles[0][0].Road = spawnedMainBase.GetComponent<RoadNode>();
 
         for (int i = 0; i < 5; i++)
-        {
-            GameObject spawnedPeople = GameObject.Instantiate(peoplePrefab);
-            TileLocation location = new TileLocation(Random.Range(1-worldSize, worldSize), Random.Range(1-worldSize, worldSize));
-            tiles[location].Road = spawnedPeople.GetComponent<RoadNode>();
-            Debug.Log(tiles[location].Road);
-        }
+		{
+			GameObject spawnedPeople = GameObject.Instantiate(peoplePrefab);
+			TileLocation location = GetRandomLocation();
+			tiles[location].Road = spawnedPeople.GetComponent<RoadNode>();
+		}
+
+		for (int i = 0; i < TotalRockMineClusters; i++)
+		{
+			var location = GetRandomLocation();
+			if (location.Tile.Resource != null || location.Tile.Road != null)
+			{
+				continue;
+			}
+			GameObject rockThing = Instantiate(RockSprites[Random.Range(0, RockSprites.Length)]);
+			location.Tile.Resource = rockThing.GetComponent<MinableResource>();
+
+			if (Random.Range(0f, 1f) < ChanceOfCluster)
+				MakeAdjacentRocks(location, Directions.Up);
+			if (Random.Range(0f, 1f) < ChanceOfCluster)
+				MakeAdjacentRocks(location, Directions.Down);
+			if (Random.Range(0f, 1f) < ChanceOfCluster)
+				MakeAdjacentRocks(location, Directions.Left);
+			if (Random.Range(0f, 1f) < ChanceOfCluster)
+				MakeAdjacentRocks(location, Directions.Right);
+		}
 
         fluidDeltas = new Map<float>(worldSize);
 
@@ -109,7 +133,20 @@ public class Terrain : MonoBehaviour, IObservable<FluidTick> {
         coll.points = colliderPoints;
 	}
 
-    IEnumerator fluidTick()
+	private void MakeAdjacentRocks(TileLocation location, Directions dir)
+	{
+		if (Terrain.self.validTileLocation(location.Adjacent(dir)) && location.Adjacent(dir).Tile.Resource == null && location.Adjacent(dir).Tile.Road == null)
+		{
+			location.Adjacent(dir).Tile.Resource = Instantiate(RockSprites[Random.Range(0, RockSprites.Length)]).GetComponent<MinableResource>();
+		}
+	}
+
+	private TileLocation GetRandomLocation()
+	{
+		return new TileLocation(Random.Range(1 - worldSize, worldSize), Random.Range(1 - worldSize, worldSize));
+	}
+
+	IEnumerator fluidTick()
     {
         for (; ; )
         {
