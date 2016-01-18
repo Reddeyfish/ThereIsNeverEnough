@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class TweenColor : MonoBehaviour {
+public class TweenFade : MonoBehaviour {
 
-	public Color color;
+	public float alpha;
 	[Tooltip("Time")]
 	public float Time = 1.0f;
 	[Tooltip("How we ease the tween.")]
@@ -12,10 +12,11 @@ public class TweenColor : MonoBehaviour {
 	public bool TweenOnStart = true;
 
 	// Use this for initialization
-	void Start () {
+	void Start()
+	{
 		if (TweenOnStart)
 		{
-			iTween.ColorTo(gameObject, iTween.Hash("color", color, "time", Time, "easetype", EaseType, "looptype", LoopType));
+			iTween.ColorTo(gameObject, iTween.Hash("alpha", alpha, "time", Time, "easetype", EaseType, "looptype", LoopType));
 		}
 	}
 }
