@@ -11,9 +11,9 @@ public class FinalScoreDisplay : MonoBehaviour {
 		if (PlayerPrefs.GetInt ("Score") == 0) {
 			scoreBox.text = "The disaster stuck too quickly. All residents of The City of Townsville perished.";
 		} else if (PlayerPrefs.GetInt ("Score") == 1) {
-			scoreBox.text = "You successfully evacuated 1 person at the cost of your life. The City of Townsville will rise again.";
+			scoreBox.text = "You successfully evacuated 1 person. The City of Townsville will rise again.";
 		} else {
-			scoreBox.text = "You successfully evacuated " + PlayerPrefs.GetInt ("Score") + " people at the cost of your life. The City of Townsville will rise again.";
+			scoreBox.text = "You successfully evacuated " + PlayerPrefs.GetInt ("Score") + " people. The City of Townsville will rise again.";
 		}
 	}
 }
