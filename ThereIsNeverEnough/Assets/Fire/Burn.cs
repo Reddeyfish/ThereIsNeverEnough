@@ -14,6 +14,10 @@ public class Burn : MonoBehaviour {
 		if (location.Tile.HasRoad) {
             location.Tile.Road.DestroySelf();
 		}
+
+		if (location.Tile.Resource != null) {
+			location.Tile.Resource.DestroyMine ();
+		}
 	}
 
 
