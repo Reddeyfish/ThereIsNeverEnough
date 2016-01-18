@@ -68,7 +68,6 @@ public class HealthBar : MonoBehaviour {
 		if (CurrentHealth < 0)
 		{
 			Debug.Log("Player Death");
-			PlayerPrefs.SetInt ("Dead", 1);
 			SceneManager.LoadScene("Score");
 		}
 	}
