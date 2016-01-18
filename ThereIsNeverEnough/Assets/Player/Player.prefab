@@ -581,6 +581,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   building: 0
+  Sparks: {fileID: 19842718, guid: b510f6639e5e60341bc559dc69b087c2, type: 2}
   MaxStone: 125
   MaxDirt: 250
   CurrentStone: 20

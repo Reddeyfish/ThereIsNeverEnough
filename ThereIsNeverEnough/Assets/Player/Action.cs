@@ -8,6 +8,8 @@ public class Action : MonoBehaviour, IObservable<PlayerMovedMessage> {
     public Vector2 direction { get; set; }
     public bool building;
 
+	public ParticleSystem Sparks;
+
 	public float MaxStone = 100;
 	public float MaxDirt = 200;
 	public float CurrentStone = 20;
@@ -124,7 +126,7 @@ public class Action : MonoBehaviour, IObservable<PlayerMovedMessage> {
 				audio.PlayOneShot(audio.clip);
 			}
 			UpdateUISliders();
-
+			Instantiate(Sparks, new Vector3(transform.position.x, transform.position.y, -9), Quaternion.identity);
 		}
 
 		// if space down set rotation z to 40 else zero
