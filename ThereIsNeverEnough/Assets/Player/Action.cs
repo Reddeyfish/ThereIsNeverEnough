@@ -7,6 +7,11 @@ public class Action : MonoBehaviour, IObservable<PlayerMovedMessage> {
     public Vector2 direction { get; set; }
     public bool building;
 
+	public int SelectedRoadTiles
+	{
+		get { return selectedRoadPrefab; }
+	}
+
     [SerializeField]
     protected GameObject contructionPrefab;
     [SerializeField]
@@ -28,7 +33,7 @@ public class Action : MonoBehaviour, IObservable<PlayerMovedMessage> {
     TileLocation currentLocation;
 	private int selectedRoadPrefab = 0;
 
-	private const float changeRoadsDelay = 0.8f;
+	private const float changeRoadsDelay = 0.4f;
 	private float m_scrollTimer = 0;
 
     void Awake()
